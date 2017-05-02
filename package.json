@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prebuild":"./node_modules/.bin/electron-rebuild",
+    "postinstall":"./node_modules/.bin/electron-rebuild",
     "app": "./node_modules/.bin/electron app/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "db:clear": "rm -rf /Users/zhoupeng/Library/Application\\ Support/Electron/database.sqlite3",

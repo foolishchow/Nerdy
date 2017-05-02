@@ -1,0 +1,10 @@
+{
+  "presets": [
+    ["latest", {
+      "es2016": { "modules": false }
+    }]
+  ],
+  "plugins": [
+    "transform-vue-jsx"
+  ]
+}
