@@ -1,0 +1,53 @@
+{
+  "name": "Nerdy",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prebuild":"./node_modules/.bin/electron-rebuild",
+    "app": "./node_modules/.bin/electron app/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:clear": "rm -rf /Users/zhoupeng/Library/Application\\ Support/Electron/database.sqlite3",
+    "dev": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "codemirror": "^5.25.0",
+    "electron-config": "^0.2.1",
+    "electron-json-storage": "^3.0.5",
+    "front-matter": "^2.1.2",
+    "github-markdown-css": "^2.6.0",
+    "highlight.js": "^9.11.0",
+    "markdown-it": "^8.3.1",
+    "markdown-it-task-lists": "^2.0.0",
+    "sanitize-html": "^1.14.1",
+    "sqlite3": "^3.1.8",
+    "vue": "2.1.6",
+    "vuex": "^2.3.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.0.0",
+    "babel-helper-vue-jsx-merge-props": "^2.0.2",
+    "babel-loader": "^6.0.0",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-vue-jsx": "^3.4.2",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-latest": "^6.0.0",
+    "cross-env": "^3.0.0",
+    "css-loader": "^0.25.0",
+    "electron": "^1.6.2",
+    "electron-rebuild": "^1.5.7",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.9.0",
+    "json-loader": "^0.5.4",
+    "postcss-loader": "^1.3.3",
+    "postcss-salad": "^1.0.8",
+    "vue-loader": "^11.1.4",
+    "vue-router-loader-yaml": "0.0.2",
+    "vue-template-compiler": "2.1.6",
+    "webpack": "^2.2.0",
+    "webpack-dev-server": "^2.2.0",
+    "yaml-loader": "^0.4.0"
+  }
+}
