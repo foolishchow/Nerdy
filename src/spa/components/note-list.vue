@@ -7,15 +7,20 @@
             <span class="iconfont icon-yincangdaohang"
                   @click="toggleCate"></span>
             <span class="iconfont icon-iconfontshanchu6"
-                  ></span>
+                  @click="deleteNote" ></span>
             <span class="iconfont icon-bianji1"
                   @click="addNote"></span>
         </app-title>
-        <div class="note-container _container">
+        <div class="note-container _container" tabindex="30002"
+             @keyup.delete="deleteNote" @dragover="NoteWrapDragenter()">
             <div class="note-root">
-                <div class="note" v-for="note in model.notes"
+                <div class="note" v-for="note in noteList"
                     :class="note.id == noteId ? ' active' :''"
-                    @click="changeNoteId(note)">
+                    @click="changeNoteId(note)"
+
+                    :draggable="!resize.can"
+                    @dragstart="NoteDragstart($event,note)"
+                    @dragend="NoteDragend($event)">
                     <h5>{{note.title}}</h5>
                     <p>{{note.last_update_date | date}} {{note.description}}</p>
                 </div>
@@ -30,9 +35,6 @@
         data(){
             return {
                 viewModel: {},
-                model: {
-                    notes:[]
-                },
                 resize: {
                     can: false,
                     in: false,
@@ -65,20 +67,61 @@
                     };
                 }
                 this.$db('notes.query',condition,(data)=>{
-                    this.model.notes = data;
+                    this.commit('noteList',data);
+                    if(data.length == 0) {
+                        this.commit('noteId',null);
+                        return;
+                    }
+                    let hasThisNote = false;
+                    data.forEach(item=>{
+                        if(item.id == this.noteId) hasThisNote = true;
+                    });
+                    if(!hasThisNote) this.commit('noteId',data[0].id);
                 });
             },
             addNote(){
+                if(this.mode == 'preview') this.commit('mode','edit');
                 this.$db('notes.add',{title:'新建文档',cateId:this.cateId},id=>{
                     this.commit('noteId',id);
                     this.query();
                 });
             },
-            evalDate(){
-
+            deleteNote(){
+                if(this.noteId == null ) return;
+                this.$confirm('确定删除这个文档么?',(result)=>{
+                    if(result){
+                        this.$db('notes.delete',{id:this.noteId},()=>{
+                            this.commit('refreshFlag','')
+                        })
+                    }
+                });
+            },
+            NoteDragstart(event,note){
+                this.commit('dragged',{type:'note',data:note});
+                event.dataTransfer.setDragImage(document.getElementById('drag'),20,20);
+            },
+            NoteDragend(event){
+                if(this.dragEnter == null){
+                    event.dataTransfer.dropEffect = 'none';
+                }else{
+                    this.$db('notes.updateCate',{id:this.dragged.data.id,cate_id:this.dragEnter}, (result) => {
+                        this.commit('dragged',null);
+                        this.commit('dragEnter',null);
+                        this.commit('refreshFlag')
+                    })
+                }
+            },
+            NoteWrapDragenter(){
+                this.commit('dragEnter',null)
             }
         },
         computed: {
+            dragged(){
+                return this.$store.state.config.dragged
+            },
+            dragEnter(){
+                return this.$store.state.config.dragEnter
+            },
             hiddenCate(){
                 return this.$store.state.config.hiddenCate
             },
@@ -93,12 +136,23 @@
             },
             commit(){
                 return this.$store.commit;
+            },
+            refreshFlag(){
+                return this.$store.state.config.refreshFlag;
+            },
+            noteList(){
+                return this.$store.state.config.noteList;
+            },
+            mode(){
+                return this.$store.state.config.mode;
             }
         },
         watch:{
             cateId(val){
                 this.query();
-                console.info(`cateId changed to => ${val}`)
+            },
+            refreshFlag(){
+                this.query();
             }
         }
     }
@@ -113,6 +167,7 @@
         position: relative;
 
         .note-container {
+            transform: translate3d(0,0,0);
             position: absolute;
             top: 34px;
             bottom: 0;
@@ -149,13 +204,17 @@
                 background-color: rgb(254, 240, 180);
             }
             & > h5 {
-                margin: 0 0 3px 0;
+                margin: 0 0 7px 0;
                 padding: 0;
                 font-size: 14px;
                 font-weight: 400;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                word-break: break-all;
             }
             & > p {
-                color: #444;
+                color: #333;
                 margin: 0;
                 padding: 0;
                 font-weight: 300;

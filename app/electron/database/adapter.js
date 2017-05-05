@@ -5,7 +5,7 @@ const sqlite3 = require('sqlite3'),
 
 
 const db = new sqlite3.Database(path.resolve(app.getPath('userData'), 'database.sqlite3'));
-console.info(path.resolve(app.getPath('userData'), 'database.sqlite3'))
+// console.info(path.resolve(app.getPath('userData'), 'database.sqlite3'))
 // const new Promise = function (callback) {
 //     return new Promise(function (resolve, reject) {
 //         callback(resolve, reject)
@@ -138,6 +138,50 @@ const notes = {
                     }
                 })
         });
+    },
+    updateCate: async function ({id,cate_id}) {
+        let inited = await init();
+        if (!inited) return null;
+        return new Promise(function (resolve, reject) {
+            db.run(
+                `update notes set cateId = ? where id = ? `,
+                [cate_id,id],
+                function (error) {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve(arguments);
+                    }
+                })
+        });
+    },
+    delete:async function({id}){
+        let inited = await init();
+        if (!inited) return null;
+        let deleteSelf = ()=>{
+            return new Promise((resolve,reject)=>{
+                db.run('delete from notes where id = ? ;',
+                    [id],
+                    error=>{
+                        if (error) {
+                            reject(error);
+                        } else {
+                            resolve({success: true});
+                        }
+                    })
+            });
+        }
+        return new Promise((resolve,reject)=>{
+            deleteSelf().then(()=>{
+                note_detail.delete({parent_id:id})
+                    .then(()=>{
+                        resolve({success: true})
+                    })
+                    .catch(()=>{
+                        reject(null)
+                    })
+            })
+        })
     }
 };
 
@@ -194,7 +238,7 @@ const note_detail = {
                 db.run(
                     `INSERT INTO 
                     note_detail (id,text, parent_id,create_date,last_update_date) 
-                    VALUES (?,?,?, ?, ?);`, [null, '', parent_id, new Date().Format('YYYY-MM-dd HH:mm:ss'), new Date().Format('YYYY-MM-dd HH:mm:ss')],
+                    VALUES (?,?,?, ?, ?);`, [null, '# 新建文档', parent_id, new Date().Format('YYYY-MM-dd HH:mm:ss'), new Date().Format('YYYY-MM-dd HH:mm:ss')],
                     function (error) {
                         if (error) {
                             console.log('FAIL on add ' + error);
@@ -208,8 +252,20 @@ const note_detail = {
 
         });
     },
-    delete: async function () {
-
+    delete: async function ({parent_id}) {
+        let inited = await init();
+        if (!inited) return null;
+        return new Promise((resolve,reject)=>{
+            db.run('delete from note_detail where parent_id = ? ;',
+                [parent_id],
+                error=>{
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve({success: true});
+                    }
+                })
+        });
     }
 };
 

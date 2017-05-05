@@ -7,28 +7,31 @@
         <app-title></app-title>
         <div class="cate-container _container" tabindex="30001"
              @keyup.enter="modify"
-             @keyup.delete="deleteCate">
-            <div class="nav-group">
+             @keyup.delete="deleteCate"
+             @dragenter="wrapDragover($event)">
+            <div class="nav-group" >
                 <h5 class="nav-group-title">Notes</h5>
                 <span class="nav-group-item "
                       @click="selectCate({id:'all'})"
                       :class="cateId == 'all' ? 'active' : ''"
                 >所有</span>
                 <template v-for="cate in model.cates">
-                        <span v-if=" cateId == cate.id && viewModel.edit"
-                              class="nav-group-item active"
-                        >
-                            <input class="cate-edit"
-                                   ref="cate-edit" v-model="cate.title"
-                                   :style="{width:_inputWidth}"
-                                   @keyup.stop.enter="saveModify($event,cate)"
-                                   @keyup.stop/>
-                        </span>
-                        <span v-else
-                              class="nav-group-item "
-                              :class="cateId == cate.id ? 'active' : ''"
-                              @click="selectCate(cate)"
-                        >{{cate.title}}</span>
+                    <span v-if="cateId == cate.id && viewModel.edit"
+                          class="nav-group-item active" >
+                        <input class="cate-edit"
+                               ref="cate-edit" v-model="cate.title"
+                               :style="{width:_inputWidth}"
+                               v-click-outside="saveModify"
+                               @keyup.stop.enter="saveModify($event,cate)"
+                               @keyup.stop/>
+                    </span>
+                    <span v-else
+                          class="nav-group-item "
+                          :class="[{'active':cateId == cate.id},{'dragenter':dragEnter == cate.id}]"
+                          @click="selectCate(cate)"
+                          @dragstart="dragstart($event,cate)"
+                          @dragover.stop.prevent="dragover($event,cate)"
+                    >{{cate.title}}</span>
                 </template>
             </div>
         </div>
@@ -47,15 +50,15 @@
             return {
                 viewModel: {
                     edit: false,
-                    needSelect: false
+                    needSelect: false,
                 },
                 model: {
                     cates: []
                 },
-                resize:{
-                    can:false,
-                    in:false,
-                    min:  130
+                resize: {
+                    can: false,
+                    in: false,
+                    min: 130
                 }
             };
         },
@@ -63,11 +66,20 @@
             this.query();
         },
         computed: {
+            dragged(){
+                return this.$store.state.config.dragged
+            },
+            dragEnter(){
+                return this.$store.state.config.dragEnter
+            },
             _cateWidth(){
                 return this.$store.state.config.cateWidth + 'px';
             },
             _inputWidth(){
                 return (this.$store.state.config.cateWidth - 46) + 'px';
+            },
+            noteList(){
+                return this.$store.state.config.noteList;
             },
             cateId() {
                 return this.$store.state.config.cateId;
@@ -79,7 +91,7 @@
                 return this.$store.commit;
             },
             selectedCate(){
-                if (this.cateId == 'all') return {id:'all',title:'所有'};
+                if (this.cateId == 'all') return {id: 'all', title: '所有'};
                 var i = 0;
                 while (this.model.cates[i].id != this.cateId) {
                     i++;
@@ -96,33 +108,61 @@
             }
         },
         methods: {
+            wrapDragover(event){
+                this.commit('dragEnter',null);
+            },
+            dragover(event,cate){
+                let note = this.dragged.data;
+                if(note.cateId != cate.id){
+                    event.dataTransfer.dropEffect = 'move'
+                    this.commit('dragEnter',cate.id);
+                }else{
+                    event.dataTransfer.dropEffect = 'none'
+                    this.commit('dragEnter',null);
+                }
+            },
+
             updateWidth(width){
-                this.commit('cateWidth',width)
+                this.commit('cateWidth', width)
             },
             query(){
-                this.$db('cates.query',{},(data)=>{
+                this.$db('cates.query', {}, (data)=> {
                     this.model.cates = data;
                 });
             },
             deleteCate(){
                 if (this.cateId == 'all') return;
-                var i = 0;
-                while (this.model.cates[i].id != this.cateId) {
-                    i++;
-                }
-                this.$db('cates.delete', this.cateId, ({success})=> {
-                    if (success) {
-                        this.query();
-                        let id = i == 0 ? 'all' : this.model.cates[i - 1].id;
-                        this.commit('cateId', id)
+                let _deleteCate = ()=>{
+                    var i = 0;
+                    while (this.model.cates[i].id != this.cateId) {
+                        i++;
                     }
-                });
-            },
+                    this.$db('cates.delete', this.cateId, ({success})=> {
+                        if (success) {
+                            this.query();
+                            let id = i == 0 ? 'all' : this.model.cates[i - 1].id;
+                            this.commit('cateId', id)
+                        }
+                    });
+                }
+                if( this.noteList.length > 0 ){
+                    this.$confirm('确认删除该分类么?',(result)=>{
+                        if(result) _deleteCate();
+                    })
+                }else{
+                    _deleteCate();
+                }
 
+            },
             modify(){
                 if (this.cateId == 'all') return;
-                this.viewModel.edit = true;
-                this.viewModel.needSelect = true;
+                if (!this.viewModel.edit) {
+                    this.viewModel.edit = true;
+                    this.viewModel.needSelect = true;
+                } else {
+                    this.saveModify();
+                }
+
             },
             selectCate(cate){
                 if (this.cateId == cate.id) return;
@@ -136,10 +176,12 @@
                     this.commit('cateId', cate.id);
                 }
             },
-            saveModify(){
+            saveModify(event){
                 let cate = this.selectedCate;
-                cate.title = cate.title.replace(/^\s|\s$/gi, '');;
+                cate.title = cate.title.replace(/^\s|\s$/gi, '');
+                ;
                 return new Promise((resolve)=> {
+                    this.viewModel.insave = false;
                     if (cate.title == '') {
                         this.$alert(`分组名不能为空`);
                         this.$refs['cate-edit'][0].select();
@@ -157,7 +199,9 @@
                         return false;
                     } else {
                         this.$db('cates.update', cate, (data) => {
-                            this.viewModel.edit = false;
+                            Vue.nextTick(()=> {
+                                this.viewModel.edit = false;
+                            });
                             this.$refs['cate-list'].focus();
                             resolve(true)
                         });
@@ -197,6 +241,7 @@
         float: left;
 
         .cate-container {
+            transform: translate3d(0,0,0);
             position: absolute;
             top: 34px;
             bottom: 25px;
@@ -254,6 +299,10 @@
                 font-weight: 400;
                 &.active {
                     background-color: #dcdfe1;
+                }
+                &.dragenter{
+                    background: rgb(23, 112, 220);
+                    color: #fff;
                 }
             }
         }

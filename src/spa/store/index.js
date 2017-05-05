@@ -1,5 +1,4 @@
-import Vuex from 'vuex'
-
+const {Vuex} = window;
 import config from './modules/config'
 
 const store = new Vuex.Store({

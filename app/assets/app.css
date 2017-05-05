@@ -70,6 +70,10 @@
 
 
 
+
+
+
+
 /*codemirror theme */
 .e-wrap {
     background: #fff;
@@ -97,8 +101,17 @@
         -ms-flex: 1;
             flex: 1;
 }
+.e-wrap .empty-wrap{
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    background: rgb(245, 245, 245);
+}
 .editor-wrap .CodeMirror {
     height: 100%;
+}
+.editor-wrap .CodeMirror .CodeMirror-linenumbers{
+    border-right: 1px solid #ddd;
 }
 .editor-wrap .cm-s-base16-light .CodeMirror-activeline-background {
     background-color: transparent;
@@ -117,6 +130,12 @@
     height: 100%;
     overflow: auto;
 }
+.markdown-body{
+    font-size: 85%;
+}
+.markdown-body * {
+    -webkit-user-select: auto;
+}
 
 .left-wrap {
     height: 100%
@@ -133,6 +152,8 @@
     float: left;
 }
 .cate-list .cate-container {
+    -webkit-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
     position: absolute;
     top: 34px;
     bottom: 25px;
@@ -189,6 +210,10 @@
 .cate-list .nav-group .nav-group-item.active {
     background-color: #dcdfe1;
 }
+.cate-list .nav-group .nav-group-item.dragenter {
+    background: rgb(23, 112, 220);
+    color: #fff;
+}
 
 .note-list {
     font-size: 13px;
@@ -199,6 +224,8 @@
     position: relative;
 }
 .note-list .note-container {
+    -webkit-transform: translate3d(0,0,0);
+            transform: translate3d(0,0,0);
     position: absolute;
     top: 34px;
     bottom: 0;
@@ -229,13 +256,17 @@
     background-color: rgb(254, 240, 180);
 }
 .note-list .note > h5 {
-    margin: 0 0 3px 0;
+    margin: 0 0 7px 0;
     padding: 0;
     font-size: 14px;
     font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
 }
 .note-list .note > p {
-    color: #444;
+    color: #333;
     margin: 0;
     padding: 0;
     font-weight: 300;

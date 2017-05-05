@@ -1,6 +1,6 @@
-import markdown from './spa/utils/markdown.js'
-import parse from './spa/utils/parse.js';
-import sanitize from './spa/utils/sanitize.js';
+import markdown from './markdown/markdown.js'
+import parse from './markdown/parse.js';
+import sanitize from './markdown/sanitize.js';
 
 export default {
     markdown,

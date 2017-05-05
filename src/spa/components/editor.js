@@ -15,12 +15,16 @@ export  default {
             }
         },
         queryNote(){
-            this.$db('note_detail.query', {parent_id: this.noteId}, (data)=> {
-                this.msg = data.text;
-                this.editor.setValue(data.text);
-                this.editor.refresh();
-                this.initPreview();
-            })
+            if(this.noteId != null ){
+                this.$db('note_detail.query', {parent_id: this.noteId}, (data)=> {
+                    this.msg = data.text;
+                    this.editor.setValue(data.text);
+                    this.editor.refresh();
+                    this.initPreview();
+                })
+            }else{
+
+            }
         },
         initPreview(){
             this.preview = markdown.parse({content: this.msg}).html;
@@ -42,18 +46,17 @@ export  default {
                         Enter: 'newlineAndIndentContinue',
                         Tab(cm){
                             cm.replaceSelection(' '.repeat(cm.getOption('tabSize')))
-                            //                            if ( this.settings.indentWithTabs ){
-                            //                                cm.replaceSelection('\t');
-                            //                            }else{
-                            //                            }
                         },
                         // 'Alt-F': 'findPersistent'
                     }
                 });
                 editor.on('change', (e)=> {
-                    this.msg = e.getValue().replace(/\\n/gi, '\n');
-                    this.initPreview();
-                    this.updateNotes();
+                    let value = e.getValue();
+                    if(value != this.msg){
+                        this.msg = value;
+                        this.initPreview();
+                        this.updateNotes();
+                    }
                 });
                 setTimeout(()=> {
                     editor.refresh()
@@ -62,14 +65,13 @@ export  default {
             }
         },
         updateNotes(){
-
             this.$db('note_detail.update', {
                 text: this.msg,
                 parent_id: this.noteId,
                 title:this.title,
                 description:this.description
             }, (data) => {
-                console.info(data)
+                this.commit('refreshFlag',new Date().getTime())
             });
         }
     },
@@ -87,7 +89,7 @@ export  default {
             }
         },
         msg(val){
-            console.info(`msg changed to => ${val}`)
+            // console.info(`msg changed to => ${val}`)
         }
 
     }

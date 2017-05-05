@@ -8,7 +8,11 @@ const state = {
     noteDetail:'',
     mode:'preview',
     showEdit:false,
-    showPreview:true
+    showPreview:true,
+    noteList:[],
+    refreshFlag:new Date().getTime(),
+    dragged:null,
+    dragEnter:null
 };
 
 const update = (data)=>{
@@ -56,6 +60,18 @@ const mutations = {
             state.showPreview = false;
         }
         update(state);
+    },
+    refreshFlag(state){
+        state.refreshFlag = new Date().getTime();
+    },
+    noteList(state,val){
+        state.noteList = val;
+    },
+    dragged(state,val){
+        state.dragged = val;
+    },
+    dragEnter(state,val){
+        state.dragEnter = val;
     }
 };
 const init = ()=>{
@@ -63,6 +79,7 @@ const init = ()=>{
         method:'get',
         arg:{}
     },function (event,arg) {
+        delete arg.dragEnter;
         Object.assign(state,arg)
     });
 };

@@ -26,13 +26,13 @@ export default {
                     startMouseLeft: event.clientX,
                     startWidth: rect.right - rect.left
                 };
-                this.resize.trigger.querySelector('._container').style.overflowY = 'hidden';
+                // this.resize.trigger.querySelector('._container').style.overflowY = 'hidden';
 
                 const handleMouseUp = (event)=>{
                     if (this.resize.in) {
                         var width = this.resize.trigger.style.width;
                         document.body.style.cursor = '';
-                        this.resize.trigger.querySelector('._container').style.overflowY = 'scroll';
+                        // this.resize.trigger.querySelector('._container').style.overflowY = 'scroll';
                         this.resize.in = false;
                         this[cb](parseInt(width.replace(/px$/gi,'')));
                     }

@@ -10,6 +10,7 @@ module.exports = function () {
             // title :title||"确定",
             type: type||'info',
             buttons :Buttons,
+            defaultId:0,
             message : message,
             detail : detail
         }, function(aa){

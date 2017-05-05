@@ -2,8 +2,8 @@ const config = require('./electron/config');
 config.init();
 const {register} = require('./electron/message/index');
 register();
-
-const {app} = require('electron')
+const menu = require('./electron/menu/index')
+const {app,Menu} = require('electron')
 const {createWindow,showWindow}  = require('./electron/window');
 // app.commandLine.appendArgument('--enable-touch-events');
 // Electron 会在初始化后并准备
@@ -11,6 +11,7 @@ const {createWindow,showWindow}  = require('./electron/window');
 // 部分 API 在 ready 事件触发后才能使用。
 app.on('ready', function(){
     createWindow();
+    Menu.setApplicationMenu(menu);
 });
 
 // 当全部窗口关闭时退出。

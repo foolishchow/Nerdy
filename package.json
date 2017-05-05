@@ -1,19 +1,34 @@
 {
   "name": "Nerdy",
   "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "description": "an markdown notebook similar to mac OSX's notes",
+  "main": "app/index.js",
   "scripts": {
-    "postinstall":"./node_modules/.bin/electron-rebuild",
+    "postinstall": "./node_modules/.bin/electron-rebuild",
     "app": "./node_modules/.bin/electron app/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "db:clear": "rm -rf /Users/zhoupeng/Library/Application\\ Support/Electron/database.sqlite3",
-    "dev": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    "db:clear": "rm -rf ~/Library/Application\\ Support/Electron/database.sqlite3",
+    "dev": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "mac": "build --mac",
+    "win": "build --win --ia32"
   },
-  "author": "",
+  "author": "foolishchow",
   "license": "ISC",
+  "build": {
+    "appId": "com.foolish.nerdy",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "asar": true,
+    "win": {
+      "target": [
+        "squirrel"
+      ]
+    }
+  },
   "dependencies": {
     "codemirror": "^5.25.0",
+    "electron-builder": "^17.1.2",
     "electron-config": "^0.2.1",
     "electron-json-storage": "^3.0.5",
     "front-matter": "^2.1.2",

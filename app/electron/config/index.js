@@ -5,7 +5,7 @@ const userDataPath = app.getPath('userData');
 const path = require('path');
 const fs = require('fs')
 
-console.info(userDataPath);
+// console.info(userDataPath);
 module.exports  = {
     init(){
         var database = path.resolve(userDataPath,'database.sqlite3');

@@ -12,12 +12,13 @@
                v-show="mode != 'edit'"></i>
         </app-title>
         <div class="e-wrap">
-            <div class="editor-wrap" v-show="showEdit">
+            <div class="editor-wrap" v-show="noteId != null && showEdit">
                 <textarea class="editor-input" ref="textarea">{{msg}}</textarea>
             </div>
-            <div class="preview-wrap" v-show="showPreview">
+            <div class="preview-wrap" v-show="noteId != null && showPreview">
                 <div class="markdown-body" v-html="preview"></div>
             </div>
+            <div class="empty-wrap" v-show="noteId == null"></div>
         </div>
     </div>
 
@@ -49,6 +50,9 @@
             },
             mode(){
                 return this.$store.state.config.mode;
+            },
+            refreshFlag(){
+                return this.$store.state.config.refreshFlag;
             },
             title(){
                 let result = '';
@@ -90,12 +94,19 @@
         .editor-wrap {
             flex: 1;
         }
+        .empty-wrap{
+            flex: 1;
+            background: lighten(#999,60%);
+        }
     }
 
     .editor-wrap {
 
         .CodeMirror {
             height: 100%;
+            .CodeMirror-linenumbers{
+                border-right: 1px solid #ddd;
+            }
         }
         &.focus-mode {
             * {
@@ -121,6 +132,13 @@
         min-width: 100px;
         height: 100%;
         overflow: auto;
+    }
+
+    .markdown-body{
+        font-size: 85%;
+        * {
+            -webkit-user-select: auto;
+        }
     }
 </style>
 

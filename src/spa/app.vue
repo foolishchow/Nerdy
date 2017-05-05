@@ -12,7 +12,11 @@
                 <editor></editor>
             </div>
         </div>
+        <div style="position: absolute;width: 0;height: 0;z-index: -1">
+            <img id="drag" :src="dragImg" style="width: 30px;height: auto">
+        </div>
     </div>
+
 </template>
 <script type="text/babel">
     export default{
@@ -23,7 +27,8 @@
                     noteWidth: 180,
                     hiddenCate: false
                 },
-                inited: false
+                inited: false,
+                dragImg:'../assets/img/plan.png'
             };
         },
         created(){
@@ -65,6 +70,7 @@
         outline: none;
         -webkit-font-smoothing: antialiased;
     }
+
 
     body {
         /*cursor: col-resize;*/
