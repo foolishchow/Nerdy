@@ -5,10 +5,15 @@
   "main": "app/index.js",
   "scripts": {
     "postinstall": "./node_modules/.bin/electron-rebuild",
-    "app": "./node_modules/.bin/electron app/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "db:clear": "rm -rf ~/Library/Application\\ Support/Electron/database.sqlite3",
-    "dev": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "component":"cross-env NODE_ENV=production webpack --progress --hide-modules --config scripts/component.webpack.config.js",
+    "markdown":"cross-env NODE_ENV=production webpack --progress --hide-modules --config scripts/markdown.webpack.config.js",
+    "vue":"cross-env NODE_ENV=production webpack --progress --hide-modules --config scripts/vue.webpack.config.js",
+    "dev:vue": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "build:web":"npm run component && npm run markdown && npm run vue",
+    "dev":"npm run component && npm run markdown && npm run dev:vue",
+    "app": "./node_modules/.bin/electron app/index.js",
     "mac": "build --mac",
     "win": "build --win --ia32"
   },
@@ -29,16 +34,13 @@
   "dependencies": {
     "codemirror": "^5.25.0",
     "electron-config": "^0.2.1",
-    "electron-json-storage": "^3.0.5",
     "front-matter": "^2.1.2",
     "github-markdown-css": "^2.6.0",
     "highlight.js": "^9.11.0",
     "markdown-it": "^8.3.1",
     "markdown-it-task-lists": "^2.0.0",
     "sanitize-html": "^1.14.1",
-    "sqlite3": "^3.1.8",
-    "vue": "2.1.6",
-    "vuex": "^2.3.1"
+    "sqlite3": "^3.1.8"
   },
   "devDependencies": {
     "electron-builder": "^17.1.2",

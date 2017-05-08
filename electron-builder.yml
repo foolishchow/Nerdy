@@ -1,0 +1,10 @@
+appId: com.foolish.nerdy
+mac:
+  category: public.app-category.utilities
+asar: true
+win:
+  target:
+      - squirrel
+files:
+  - "!**/*.map"
+  - "!src/"
