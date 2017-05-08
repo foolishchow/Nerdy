@@ -76,7 +76,7 @@
         /*cursor: col-resize;*/
     }
 
-    // Forms
+    /*Forms*/
     input,
     textarea {
         -webkit-user-select: text;
