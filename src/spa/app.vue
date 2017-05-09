@@ -28,7 +28,7 @@
                     hiddenCate: false
                 },
                 inited: false,
-                dragImg:'../assets/img/plan.png'
+                dragImg: '../assets/img/plan.png'
             };
         },
         created(){
@@ -70,7 +70,6 @@
         outline: none;
         -webkit-font-smoothing: antialiased;
     }
-
 
     body {
         /*cursor: col-resize;*/
@@ -115,7 +114,60 @@
         display: flex;
         & > div.flex-editor {
             flex: 1;
-            position:relative;
+            position: relative;
         }
     }
+
+    .CodeMirror-line {
+        .cm-header-1 {
+            font-size: 24px;
+        }
+        .cm-header-2 {
+            font-size: 21px;
+        }
+        .cm-header-3 {
+            font-size: 18px;
+        }
+        .cm-header-4 {
+            font-size: 16px;
+        }
+        .cm-header-5 {
+            font-size: 14px;
+        }
+        .cm-header-6 {
+            font-size: 12px;
+        }
+        .cm-header {
+            color: rgb(109, 115, 194)
+        }
+
+        .cm-header-4,
+        .cm-header-5,
+        .cm-header-6 {
+            color: rgb(46, 140, 207)
+        }
+
+        .cm-strong {
+            color: rgb(218, 52, 52)
+        }
+
+        .cm-em {
+            color: rgb(201, 76, 34)
+        }
+
+        span.cm-link,
+        span.cm-url {
+            color: rgb(78, 45, 152)
+        }
+
+        span.cm-comment {
+            color: rgb(18, 139, 21)
+        }
+
+        .CodeMirror-matchingbracket {
+            color: rgb(78, 45, 152) !important;
+        }
+    }
+
+
 </style>

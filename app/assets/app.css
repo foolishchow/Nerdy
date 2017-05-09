@@ -88,6 +88,10 @@
     display: -ms-flexbox;
     display: flex;
 }
+.e-wrap *{
+    font-family: Menlo;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
 .e-wrap .preview-wrap {
     -webkit-box-flex: 1;
         -ms-flex: 1;
@@ -136,6 +140,9 @@
 .markdown-body * {
     -webkit-user-select: auto;
 }
+
+
+
 
 .left-wrap {
     height: 100%
@@ -353,5 +360,46 @@ html {
             flex: 1;
     position: relative;
 }
+.CodeMirror-line .cm-header-1 {
+    font-size: 24px;
+}
+.CodeMirror-line .cm-header-2 {
+    font-size: 21px;
+}
+.CodeMirror-line .cm-header-3 {
+    font-size: 18px;
+}
+.CodeMirror-line .cm-header-4 {
+    font-size: 16px;
+}
+.CodeMirror-line .cm-header-5 {
+    font-size: 14px;
+}
+.CodeMirror-line .cm-header-6 {
+    font-size: 12px;
+}
+.CodeMirror-line .cm-header {
+    color: rgb(109, 115, 194)
+}
+.CodeMirror-line .cm-header-4, .CodeMirror-line .cm-header-5, .CodeMirror-line .cm-header-6 {
+    color: rgb(46, 140, 207)
+}
+.CodeMirror-line .cm-strong {
+    color: rgb(218, 52, 52)
+}
+.CodeMirror-line .cm-em {
+    color: rgb(201, 76, 34)
+}
+.CodeMirror-line span.cm-link, .CodeMirror-line span.cm-url {
+    color: rgb(78, 45, 152)
+}
+.CodeMirror-line span.cm-comment {
+    color: rgb(18, 139, 21)
+}
+.CodeMirror-line .CodeMirror-matchingbracket {
+    color: rgb(78, 45, 152) !important;
+}
+
+
 
 /*# sourceMappingURL=app.css.map*/

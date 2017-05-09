@@ -1382,12 +1382,13 @@ exports.default = {
 
             if (this.editor == null) {
                 var editor = CodeMirror.fromTextArea(this.$refs['textarea'], {
-                    mode: 'gfm',
+                    mode: 'markdown',
                     theme: 'base16-light', //this.settings.editor.theme,
                     lineNumbers: true,
                     matchBrackets: true,
-                    lineWrapping: true,
-                    scrollbarStyle: 'simple',
+                    lineWrapping: false,
+                    scrollbarStyle: 'native',
+                    showCursorWhenSelecting: true,
                     autofocus: true,
                     dragDrop: false,
                     tabSize: 4, //this.settings.editor.tabSize,
@@ -1395,8 +1396,35 @@ exports.default = {
                     extraKeys: {
                         Enter: 'newlineAndIndentContinue',
                         Tab: function Tab(cm) {
-                            cm.replaceSelection(' '.repeat(cm.getOption('tabSize')));
+                            console.info(cm);
+                            var sections = cm.getSelection();
+                            if (/\n/.test(sections)) {
+                                var lineNumber = cm.getCursor();
+                                console.info(lineNumber);
+                                var lines = sections.split(/\n/).length; //,'\n'+' '.repeat(cm.getOption('tabSize')));
+                                console.info(cm.setLine);
+
+                                for (var i = 0; i < lines.length; i++) {}
+                                // cm.replaceSelection(lines);
+                            } else {
+                                cm.replaceSelection(' '.repeat(cm.getOption('tabSize')));
+                            }
+                        },
+
+                        'Shift-Tab': function ShiftTab(cm) {
+                            var sections = cm.getSelection();
+                            if (/\n/.test(sections)) {} else {
+                                var lineNumber = cm.getCursor();
+                                // console.info(lineNumber)
+                                var line = cm.getLine(lineNumber.line);
+                                var tabsize = cm.getOption('tabSize');
+                                var regexp = new RegExp('^s{' + tabsize);
+                                if (regexp.text(line)) {} else {}
+                                // cm.replaceSelection(' '.repeat(cm.getOption('tabSize')))
+                            }
+                            console.info(cm.getSelection());
                         }
+                        // 'Alt-F': 'findPersistent'
                     }
                 });
                 editor.on('change', function (e) {
