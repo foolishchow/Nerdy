@@ -85,6 +85,11 @@
         padding: 0;
         margin: 0;
         display: flex;
+
+        *{
+            font-family: Menlo;
+            -webkit-font-smoothing: subpixel-antialiased;
+        }
         .preview-wrap {
             flex: 1;
             .markdown-body {
@@ -140,5 +145,8 @@
             -webkit-user-select: auto;
         }
     }
+
+
+
 </style>
 

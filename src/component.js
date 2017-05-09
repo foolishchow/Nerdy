@@ -1,6 +1,7 @@
 import CodeMirror from 'codemirror/lib/codemirror'
 import 'codemirror/addon/scroll/simplescrollbars.js'
-import 'codemirror/mode/markdown/markdown'
+// import 'codemirror/mode/markdown/markdown'
+import './components/markdown-mode'
 import 'codemirror/mode/gfm/gfm'
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/mode/clike/clike'
@@ -25,3 +26,4 @@ import "highlight.js/styles/tomorrow-night-bright.css";
 
 import "github-markdown-css/github-markdown.css";
 window.CodeMirror = CodeMirror;
+
