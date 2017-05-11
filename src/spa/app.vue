@@ -119,6 +119,10 @@
     }
 
     .CodeMirror-line {
+
+        .cm-url-define{
+            color:rgb(189,103,21);
+        }
         .cm-header-1 {
             font-size: 24px;
         }
@@ -151,13 +155,24 @@
             color: rgb(218, 52, 52)
         }
 
-        .cm-em {
-            color: rgb(201, 76, 34)
+        .cm-em,
+        .cm-emphasize{
+            color: rgb(201, 76, 34);
+            font-style: italic;
         }
 
         span.cm-link,
-        span.cm-url {
+        span.cm-url{
             color: rgb(78, 45, 152)
+        }
+
+        span.cm-image,
+        span.cm-image.cm-url,
+        span.cm-image-url{
+            color:rgb(207,22,153)
+        }
+        .cm-link{
+            text-decoration: none;
         }
 
         span.cm-comment {
@@ -167,6 +182,8 @@
         .CodeMirror-matchingbracket {
             color: rgb(78, 45, 152) !important;
         }
+
+
     }
 
 

@@ -1369,6 +1369,7 @@ exports.default = {
                 this.$db('note_detail.query', { parent_id: this.noteId }, function (data) {
                     _this.msg = data.text;
                     _this.editor.setValue(data.text);
+                    _this.editor.clearHistory();
                     _this.editor.refresh();
                     _this.initPreview();
                 });
@@ -1382,7 +1383,7 @@ exports.default = {
 
             if (this.editor == null) {
                 var editor = CodeMirror.fromTextArea(this.$refs['textarea'], {
-                    mode: 'markdown',
+                    mode: 'markdown3',
                     theme: 'base16-light', //this.settings.editor.theme,
                     lineNumbers: true,
                     matchBrackets: true,
