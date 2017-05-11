@@ -47,7 +47,11 @@ class mode extends format {
 
     token (stream, state) {
         state.formatting = false;
-        
+        console.info(`
+stream  => ${stream.string}
+thisline => ${state.thisLine == null ? '' : state.thisLine.string}
+
+        `);
         if (stream != state.thisLine) {
 
             let needAnBlankLine = state.header.no || state.hr;
