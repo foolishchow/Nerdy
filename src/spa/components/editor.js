@@ -19,6 +19,7 @@ export  default {
                 this.$db('note_detail.query', {parent_id: this.noteId}, (data)=> {
                     this.msg = data.text;
                     this.editor.setValue(data.text);
+                    this.editor.clearHistory()
                     this.editor.refresh();
                     this.initPreview();
                 })
@@ -32,7 +33,7 @@ export  default {
         initEditor(){
             if (this.editor == null) {
                 const editor = CodeMirror.fromTextArea(this.$refs['textarea'], {
-                    mode: 'markdown',
+                    mode: 'markdown3',
                     theme: 'base16-light',//this.settings.editor.theme,
                     lineNumbers: true,
                     matchBrackets: true,
@@ -50,9 +51,9 @@ export  default {
                             let sections = cm.getSelection();
                             if (/\n/.test(sections)) {
                                 let lineNumber = cm.getCursor();
-                                console.info(lineNumber)
+                                console.info(lineNumber);
                                 let lines = sections.split(/\n/).length;//,'\n'+' '.repeat(cm.getOption('tabSize')));
-                                console.info(cm.setLine)
+                                console.info(cm.setLine);
 
                                 for(var i = 0 ; i < lines.length ; i++ ){
                                 }

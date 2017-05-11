@@ -360,6 +360,9 @@ html {
             flex: 1;
     position: relative;
 }
+.CodeMirror-line .cm-url-define{
+    color:rgb(189,103,21);
+}
 .CodeMirror-line .cm-header-1 {
     font-size: 24px;
 }
@@ -387,11 +390,18 @@ html {
 .CodeMirror-line .cm-strong {
     color: rgb(218, 52, 52)
 }
-.CodeMirror-line .cm-em {
-    color: rgb(201, 76, 34)
+.CodeMirror-line .cm-em, .CodeMirror-line .cm-emphasize{
+    color: rgb(201, 76, 34);
+    font-style: italic;
 }
-.CodeMirror-line span.cm-link, .CodeMirror-line span.cm-url {
+.CodeMirror-line span.cm-link, .CodeMirror-line span.cm-url{
     color: rgb(78, 45, 152)
+}
+.CodeMirror-line span.cm-image, .CodeMirror-line span.cm-image.cm-url, .CodeMirror-line span.cm-image-url{
+    color:rgb(207,22,153)
+}
+.CodeMirror-line .cm-link{
+    text-decoration: none;
 }
 .CodeMirror-line span.cm-comment {
     color: rgb(18, 139, 21)
