@@ -175,7 +175,15 @@
             text-decoration: none;
         }
 
-        span.cm-comment {
+        .cm-list{
+            color:#6a9fb5;
+        }
+        .cm-quote{
+            color:#aaa;
+            text-decoration: blink;
+        }
+        span.cm-comment,
+        .cm-code-block{
             color: rgb(18, 139, 21)
         }
 

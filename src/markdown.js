@@ -1,15 +1,18 @@
-import markdown from './markdown/markdown.js'
-import parse from './markdown/parse.js';
-import sanitize from './markdown/sanitize.js';
+// import markdown from './markdown/markdown.js'
+// import parse from './markdown/parse.js';
+import parse from './markdown/marked';
+// import sanitize from './markdown/sanitize.js';
 
 export default {
-    markdown,
+    // markdown,
     parse,
-    sanitize
+    // sanitize
 }
 
 window.markdown = {
-    markdown,
+    // markdown,
     parse,
-    sanitize
+    // sanitize
 };
+
+

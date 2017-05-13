@@ -47,11 +47,11 @@ class mode extends format {
 
     token (stream, state) {
         state.formatting = false;
-        console.info(`
-stream  => ${stream.string}
-thisline => ${state.thisLine == null ? '' : state.thisLine.string}
-
-        `);
+//        console.info(`
+//stream  => ${stream.string}
+//thisline => ${state.thisLine == null ? '' : state.thisLine.string}
+//
+//        `);
         if (stream != state.thisLine) {
 
             let needAnBlankLine = state.header.no || state.hr;
@@ -111,6 +111,7 @@ thisline => ${state.thisLine == null ? '' : state.thisLine.string}
                 strong:false,
                 emphasize:false
             },
+            block:false,
             prevLine: null,
             thisLine: null,
             trailingSpace:0,
@@ -128,6 +129,7 @@ thisline => ${state.thisLine == null ? '' : state.thisLine.string}
             header: s.header,
             image:s.image,
             link:s.link,
+            block:s.block,
             prevLine: s.prevLine,
             thisLine: s.thisLine,
             trailingSpace:s.trailingSpace,

@@ -2,6 +2,7 @@ const tokenTypes = {
     header: "header",
     code: "comment",
     quote: "quote",
+    list:  'list',
     list1: "variable-2",
     list2: "variable-3",
     list3: "keyword",
@@ -20,6 +21,8 @@ const tokenTypes = {
     linkUrl:'link-url',
     linkUrlRef:'link-ref',
 
+    block:'code-block',
+
     urlDefine:'url-define',
 
     linkInline: "link",
@@ -35,8 +38,25 @@ const tokenTypes = {
 module.exports = (state)=> {
     var styles = [];
 
+    if(state.block){
+        styles.push(tokenTypes.block);
+        if(state.blocktype) styles.push(tokenTypes.block + '-'+state.blocktype);
+        return styles.join(' ')
+    }
+
+    if(state.inlineBlock){
+        styles.push(tokenTypes.block);
+        return styles.join(' ')
+    }
     if(state.formatting){
         styles.push(tokenTypes.linkHref);
+    }
+
+    if(state.list){
+       styles.push(tokenTypes.list)
+    }
+    if(state.quote){
+        styles.push(tokenTypes.quote)
     }
 
     if (state.header.no) {

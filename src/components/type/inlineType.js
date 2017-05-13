@@ -151,6 +151,7 @@ module.exports = {
             if (( ch == '*' || ch == '_') && !stream.eat(ch)) {
                 let type;
                 if (!state.font.emphasize) {
+                    if(stream.peek() == ' ') return false;
                     state.font.emphasize = !state.font.emphasize;
                     type = Type(state)
                 } else if (state.font.emphasize) {
@@ -161,6 +162,21 @@ module.exports = {
             }
             return false;
         }
+    },
+    block(stream, state, ch){
+        if(ch=='`'){
+            let match = stream.match(/^(`*)/,false);
+            let size = match[0].length + 1;
+            let reg = new RegExp("`{"+(size-1)+"}"+"(([^\\]\\\\(?!(`))])*)`{"+size+"}");
+            if(stream.match(reg,true)){
+                state.inlineBlock = true;
+                let type = Type(state);
+                state.inlineBlock = false;
+                return type;
+            }
+            return false;
+        }
+        return false;
     }
 
 
