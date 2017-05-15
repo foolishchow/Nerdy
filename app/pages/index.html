@@ -13,8 +13,14 @@
     <script src="../assets/vue.2.1.6.js"></script>
     <script src="../assets/vuex.min.js"></script>
     <!--<script src="../assets/component.js"></script>-->
-    <script src="../assets/markdown.js"></script>
+    <!--<script src="../assets/markdown.js"></script>-->
     <script>
+        window.href_click = function (e,obj) {
+            console.info(obj)
+            e.preventDefault()
+        };
+        const parse = require('../assets/marked.js')
+        window.markdown = {parse};
         window.CodeMirror = require('../assets/test/test.js');
         window.message = require('../web/message/index');
         require('../assets/app.js');

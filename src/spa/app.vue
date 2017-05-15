@@ -194,5 +194,9 @@
 
     }
 
-
+    ::-webkit-scrollbar {width: 6px;height:6px;}
+    ::-webkit-scrollbar-track-piece{background-color: #eee;margin: -2px;}
+    ::-webkit-scrollbar-thumb{background: #aaa;min-height: 150px;min-width: 150px;border-radius: 10px;}
+    ::-webkit-scrollbar-thumb:vertical:hover{background: #555555}
+    ::-webkit-scrollbar-thumb:horizontal:hover{background: #555555}
 </style>

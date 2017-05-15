@@ -3,7 +3,7 @@ require('codemirror/addon/scroll/simplescrollbars.js');
 // import 'codemirror/mode/markdown/markdown'
 require('../../../src/components/markdown-mode');
 require('../../../src/components/markdown2');
-require('codemirror/mode/gfm/gfm');
+// require('codemirror/mode/gfm/gfm');
 require('codemirror/mode/javascript/javascript');
 require('codemirror/mode/clike/clike');
 require('codemirror/mode/htmlmixed/htmlmixed');

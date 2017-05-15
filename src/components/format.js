@@ -67,13 +67,13 @@ module.exports = class format {
         if (stream.eatSpace()) {
             return null;
         }
-       /* console.info(`
+        console.info(`
 stream   => ===>${stream.string}<===
 sol      => ${stream.sol()}
 eatSpace => ${stream.eat(/\s/)}
 peek     => ===>${stream.peek()}<===
 macth    =>`);
-        console.info(stream.match(/^(\s*```)(([^\]\\]|\\.)*)(\s*)$/,false));*/
+        console.info(stream);
         if (!state.block) {
             let block = lineType.block(stream, state);
             if (block != false) return block;

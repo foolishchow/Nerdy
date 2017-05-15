@@ -91,7 +91,15 @@ module.exports = (state)=> {
 
     if(state.line) styles.push(tokenTypes.line)
     if(state.font.emphasize) styles.push(tokenTypes.emphasize);
-    if(state.font.strong) styles.push(tokenTypes.strong);
+    if(state.font.strong){
+        styles.push(tokenTypes.strong);
+        if(state.font.strongStart){
+            styles.push(tokenTypes.strong+"-start");
+        }
+        if(state.font.strongEnd){
+            styles.push(tokenTypes.strong+"-end");
+        }
+    }
 
     return styles.length ? styles.join(' ') : null;
 

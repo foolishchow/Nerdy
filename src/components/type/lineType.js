@@ -83,7 +83,6 @@ module.exports = {
         return false;
     },
     quote(stream, state){
-        
         let match = stream.match(/^>\s/,true);
         if(match ){
             state.quote = true;
