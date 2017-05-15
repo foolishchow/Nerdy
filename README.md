@@ -4,7 +4,7 @@
 
 > build `sqlite3` native module
 
-	[`sqlite3`][sqlite3]
+[`sqlite3`][sqlite3]
 
 [sqlite3]: ./sqlite3.md "sqlite3"	
 
