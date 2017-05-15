@@ -134,13 +134,21 @@ module.exports = {
     },
     font: {
         strong(stream, state, ch){
+            /*if( ch == '*' || ch == '_' && stream.eat(ch)){
+                stream.next();
+            }*/
             if (( ch == '*' || ch == '_') && stream.eat(ch)) {
+                // stream.next();
                 let type;
                 if (!state.font.strong) {
                     state.font.strong = !state.font.strong;
+                    state.font.strongStart = true;
                     type = Type(state)
+                    state.font.strongStart = false;
                 } else if (state.font.strong) {
+                    state.font.strongEnd = true;
                     type = Type(state)
+                    state.font.strongEnd = false;
                     state.font.strong = !state.font.strong;
                 }
                 return type;
@@ -148,18 +156,18 @@ module.exports = {
             return false;
         },
         emphasize(stream, state, ch){
-            if (( ch == '*' || ch == '_') && !stream.eat(ch)) {
-                let type;
-                if (!state.font.emphasize) {
-                    if(stream.peek() == ' ') return false;
-                    state.font.emphasize = !state.font.emphasize;
-                    type = Type(state)
-                } else if (state.font.emphasize) {
-                    type = Type(state)
-                    state.font.emphasize = !state.font.emphasize;
-                }
-                return type;
-            }
+            // if (( ch == '*' || ch == '_') && !stream.eat(ch)) {
+            //     let type;
+            //     if (!state.font.emphasize) {
+            //         if(stream.peek() == ' ') return false;
+            //         state.font.emphasize = !state.font.emphasize;
+            //         type = Type(state)
+            //     } else if (state.font.emphasize) {
+            //         type = Type(state)
+            //         state.font.emphasize = !state.font.emphasize;
+            //     }
+            //     return type;
+            // }
             return false;
         }
     },
