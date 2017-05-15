@@ -3,7 +3,7 @@
          :style="{width : _noteWidth}"
          @mousedown="handleMouseDown($event,'updateWidth')"
          @mousemove="handleMouseMove($event,'note-list')">
-        <app-title :style="{paddingLeft: !hiddenCate ?'0px':'75px'}">
+        <app-title :style="{paddingLeft: (!hiddenCate||isWin) ?'0px':'75px'}">
             <span class="iconfont icon-yincangdaohang"
                   @click="toggleCate"></span>
             <span class="iconfont icon-iconfontshanchu6"

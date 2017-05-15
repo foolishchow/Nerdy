@@ -12,7 +12,8 @@ const state = {
     noteList:[],
     refreshFlag:new Date().getTime(),
     dragged:null,
-    dragEnter:null
+    dragEnter:null,
+    os:''
 };
 
 const update = (data)=>{

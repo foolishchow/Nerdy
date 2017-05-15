@@ -10,7 +10,9 @@ module.exports = function () {
                 event.sender.send(chanelOnce,'ok');
                 break;
             case 'get':
-                event.sender.send(chanelOnce,config.get('config'));
+                let _config = config.get('config');
+                _config.os = process.platform === 'darwin' ? 'mac' : 'win';
+                event.sender.send(chanelOnce,_config);
                 break;
         }
     });

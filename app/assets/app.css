@@ -89,7 +89,7 @@
     display: flex;
 }
 .e-wrap *{
-    font-family: Menlo;
+    font-family: Menlo,'Courier New','Microsoft yahei';
     -webkit-font-smoothing: subpixel-antialiased;
 }
 .e-wrap .preview-wrap {
@@ -338,7 +338,7 @@ body {
     width: 100%;
     height: 100%;
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica, helvetica neue, Ubuntu, segoe ui, arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica, helvetica neue, Ubuntu, segoe ui, arial ,'Microsoft yahei', sans-serif;
 }
 html {
     padding: 0;
@@ -416,15 +416,26 @@ html {
 .CodeMirror-line .CodeMirror-matchingbracket {
     color: rgb(78, 45, 152) !important;
 }
-::-webkit-scrollbar {width: 6px;height:6px;
+.win ::-webkit-scrollbar {
+    width: 6px;
+    height:6px;
 }
-::-webkit-scrollbar-track-piece{background-color: #eee;margin: -2px;
+.win ::-webkit-scrollbar-track-piece{
+    background-color: #eee;
+    margin: -2px;
 }
-::-webkit-scrollbar-thumb{background: #aaa;min-height: 150px;min-width: 150px;border-radius: 10px;
+.win ::-webkit-scrollbar-thumb{
+    background: #aaa;
+    min-height: 150px;
+    min-width: 150px;
+    border-radius: 10px;
 }
-::-webkit-scrollbar-thumb:vertical:hover{background: #555555
+.win ::-webkit-scrollbar-thumb:vertical:hover{
+    background: #555555
 }
-::-webkit-scrollbar-thumb:horizontal:hover{background: #555555
+.win ::-webkit-scrollbar-thumb:horizontal:hover{
+    background: #555555
 }
+
 
 /*# sourceMappingURL=app.css.map*/

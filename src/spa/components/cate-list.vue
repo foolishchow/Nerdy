@@ -29,6 +29,7 @@
                           class="nav-group-item "
                           :class="[{'active':cateId == cate.id},{'dragenter':dragEnter == cate.id}]"
                           @click="selectCate(cate)"
+                          @dblclick="modify"
                           @dragstart="dragstart($event,cate)"
                           @dragover.stop.prevent="dragover($event,cate)"
                     >{{cate.title}}</span>

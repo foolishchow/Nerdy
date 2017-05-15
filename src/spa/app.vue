@@ -1,6 +1,6 @@
 <template>
     <!--<editor></editor>-->
-    <div class="app">
+    <div :class="'app '+os">
         <div class="wrap" v-if="inited">
             <left-main
                     :cate-width="config.cateWidth"
@@ -60,6 +60,11 @@
             setTitleSize(val){
                 this.config.titleSize = val;
             }
+        },
+        computed:{
+            os(){
+                return this.$store.state.config.os;
+            }
         }
     }
 </script>
@@ -97,7 +102,7 @@
         width: 100%;
         height: 100%;
         margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica, helvetica neue, Ubuntu, segoe ui, arial, sans-serif;;
+        font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica, helvetica neue, Ubuntu, segoe ui, arial ,'Microsoft yahei', sans-serif;;
     }
 
     html {
@@ -194,9 +199,12 @@
 
     }
 
-    ::-webkit-scrollbar {width: 6px;height:6px;}
-    ::-webkit-scrollbar-track-piece{background-color: #eee;margin: -2px;}
-    ::-webkit-scrollbar-thumb{background: #aaa;min-height: 150px;min-width: 150px;border-radius: 10px;}
-    ::-webkit-scrollbar-thumb:vertical:hover{background: #555555}
-    ::-webkit-scrollbar-thumb:horizontal:hover{background: #555555}
+    .win{
+        ::-webkit-scrollbar {width: 6px;height:6px;}
+        ::-webkit-scrollbar-track-piece{background-color: #eee;margin: -2px;}
+        ::-webkit-scrollbar-thumb{background: #aaa;min-height: 150px;min-width: 150px;border-radius: 10px;}
+        ::-webkit-scrollbar-thumb:vertical:hover{background: #555555}
+        ::-webkit-scrollbar-thumb:horizontal:hover{background: #555555}
+    }
+    
 </style>

@@ -87,7 +87,7 @@
         display: flex;
 
         *{
-            font-family: Menlo;
+            font-family: Menlo,'Courier New','Microsoft yahei';
             -webkit-font-smoothing: subpixel-antialiased;
         }
         .preview-wrap {

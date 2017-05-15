@@ -144,6 +144,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.default = {
+    computed: {
+        isWin: function isWin() {
+            return this.$store.state.config.os == 'win';
+        }
+    },
     methods: {
         handleMouseMove: function handleMouseMove(event, ref) {
             var target = event.target;
@@ -173,13 +178,13 @@ exports.default = {
                     startMouseLeft: event.clientX,
                     startWidth: rect.right - rect.left
                 };
-                // this.resize.trigger.querySelector('._container').style.overflowY = 'hidden';
+                this.resize.trigger.querySelector('._container').style.overflowY = 'hidden';
 
                 var handleMouseUp = function handleMouseUp(event) {
                     if (_this.resize.in) {
                         var width = _this.resize.trigger.style.width;
                         document.body.style.cursor = '';
-                        // this.resize.trigger.querySelector('._container').style.overflowY = 'scroll';
+                        if (_this.isWin) _this.resize.trigger.querySelector('._container').style.overflowY = 'scroll';
                         _this.resize.in = false;
                         _this[cb](parseInt(width.replace(/px$/gi, '')));
                     }
@@ -195,7 +200,7 @@ exports.default = {
                         width = minWidth;
                         stop = true;
                     }
-                    _this.resize.trigger.style.width = Math.min(width, 295) + 'px';
+                    if (_this.isWin) _this.resize.trigger.style.width = Math.min(width, 295) + 'px';
 
                     if (stop) {
                         document.body.style.cursor = 'e-resize';
@@ -570,6 +575,11 @@ exports.default = {
         setTitleSize: function setTitleSize(val) {
             this.config.titleSize = val;
         }
+    },
+    computed: {
+        os: function os() {
+            return this.$store.state.config.os;
+        }
     }
 };
 
@@ -827,6 +837,7 @@ exports.default = {
         }
     }
 }; //
+//
 //
 //
 //
@@ -1543,7 +1554,8 @@ var state = {
     noteList: [],
     refreshFlag: new Date().getTime(),
     dragged: null,
-    dragEnter: null
+    dragEnter: null,
+    os: ''
 };
 
 var update = function update(data) {
@@ -1851,7 +1863,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('app-title', {
     style: ({
-      paddingLeft: !_vm.hiddenCate ? '0px' : '75px'
+      paddingLeft: (!_vm.hiddenCate || _vm.isWin) ? '0px' : '75px'
     })
   }, [_c('span', {
     staticClass: "iconfont icon-yincangdaohang",
@@ -2120,6 +2132,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "click": function($event) {
           _vm.selectCate(cate)
         },
+        "dblclick": _vm.modify,
         "dragstart": function($event) {
           _vm.dragstart($event, cate)
         },
@@ -2169,7 +2182,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "app"
+    class: 'app ' + _vm.os
   }, [(_vm.inited) ? _c('div', {
     staticClass: "wrap"
   }, [_c('left-main', {
