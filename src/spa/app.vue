@@ -36,7 +36,6 @@
             //            this.$confirm('确定加载这个文件么!',function(result){
             //                console.info(result)
             //            })
-
         },
         methods: {
             updateConfig(obj, callback){
@@ -206,5 +205,5 @@
         ::-webkit-scrollbar-thumb:vertical:hover{background: #555555}
         ::-webkit-scrollbar-thumb:horizontal:hover{background: #555555}
     }
-    
+
 </style>

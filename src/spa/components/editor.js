@@ -33,7 +33,7 @@ export  default {
         initEditor(){
             if (this.editor == null) {
                 const editor = CodeMirror.fromTextArea(this.$refs['textarea'], {
-                    mode: 'markdown3',
+                    mode: 'gfm',
                     theme: 'base16-light',//this.settings.editor.theme,
                     lineNumbers: true,
                     matchBrackets: true,

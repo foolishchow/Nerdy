@@ -28,10 +28,11 @@ let createWindow = () => {
         // 通常会把多个 window 对象存放在一个数组里面，
         // 与此同时，你应该删除相应的元素。
         win = null
-    })
+    });
     win.once('ready-to-show', () => {
         win.show()
-    })
+    });
+    
 }
 
 let showWindow = ()=>{

@@ -4,7 +4,7 @@ const sqlite3 = require('sqlite3'),
     {app} = require('electron');
 
 
-const db = new sqlite3.Database(path.resolve(app.getPath('userData'), 'database.sqlite3'));
+const db = new sqlite3.Database(path.resolve(app.getPath('userData'), 'database1.sqlite3'));
 // console.info(path.resolve(app.getPath('userData'), 'database.sqlite3'))
 // const new Promise = function (callback) {
 //     return new Promise(function (resolve, reject) {
@@ -73,7 +73,7 @@ const notes = {
         if (!inited) return null;
         return new Promise(function (resolve, reject) {
             db.all(//and status = '0'
-                `select * from notes where ${clause} order by last_update_date desc`,
+                `select * from notes where ${clause}`,
                 params,
                 function (err, row) {
                     if (err) {
