@@ -140,7 +140,9 @@
     }
 
     .markdown-body{
-        font-size: 85%;
+        font-size: 95%;
+        max-width: 900px;
+        margin: 0 0 20px;
         * {
             -webkit-user-select: auto;
         }
