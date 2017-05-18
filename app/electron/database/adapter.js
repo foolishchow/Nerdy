@@ -1,9 +1,16 @@
 require('../utils/date')();
+const fs = require('fs');
+const Config = require('electron-config');
+const config = new Config('database-info');
 const sqlite3 = require('sqlite3'),
     path = require('path'),
     {app} = require('electron');
-
-const db = new sqlite3.Database(path.resolve(__dirname, 'database1.sqlite3'));
+if(config == null || !config.db ){
+    var source = path.resolve(__dirname, 'database1.sqlite3');
+    var dest =  path.resolve(app.getPath('userData'), 'database2.sqlite3');
+    fs.linkSync(source, dest)
+}
+const db = new sqlite3.Database(path.resolve(app.getPath('userData'), 'database2.sqlite3'));
 // console.info(path.resolve(app.getPath('userData'), 'database.sqlite3'))
 // const new Promise = function (callback) {
 //     return new Promise(function (resolve, reject) {
