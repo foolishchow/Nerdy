@@ -1,11 +1,14 @@
 appId: com.foolish.nerdy
 mac:
   category: public.app-category.utilities
-asar: true
+asar: TRUE
 win:
   target:
       - squirrel
+  iconUrl: "https://raw.githubusercontent.com/foolishchow/Nerdy/0.0.1/build/icon.ico"
+
 files:
   - "!**/*.map"
   - "!src/"
-iconUrl:  "https://github.com/foolishchow/Nerdy/blob/0.0.1/build/icon.ico?raw=true"
+
+
