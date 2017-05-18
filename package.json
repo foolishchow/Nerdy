@@ -29,7 +29,8 @@
       "target": [
         "squirrel"
       ]
-    }
+    },
+      "iconUrl":"https://github.com/foolishchow/Nerdy/blob/0.0.1/build/icon.ico?raw=true"
   },
   "dependencies": {
     "electron-config": "^0.2.1",
