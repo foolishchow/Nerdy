@@ -6,45 +6,19 @@ const sqlite3 = require('sqlite3'),
     path = require('path'),
     {app} = require('electron');
 
-var db_dest = path.resolve(__dirname, 'database1.sqlite3');//path.resolve(app.getPath('userData'), 'database3.sqlite3');
-// var db ;
-const db = new sqlite3.Database(db_dest);
-// console.info(path.resolve(app.getPath('userData'), 'database.sqlite3'))
+var db_dest = path.resolve(app.getPath('userData'), 'database_1.sqlite3');
+var db ;
+// const db = new sqlite3.Database(db_dest);
+console.info(db_dest)
 
-const createCates = `
-CREATE TABLE "cates" (
-     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-     "title" VARCHAR(40,0),
-     "create_date" VARCHAR(30,0),
-     "last_update_date" VARCHAR(30,0)
-);`;
-const createNotes = `
-CREATE TABLE "notes" (
-     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-     "cateId" INTEGER,
-     "title" VARCHAR(40,0),
-     "description"VARCHAR(130,0),
-     "create_date" VARCHAR(30,0),
-     "last_update_date" VARCHAR(30,0),
-     "status" VARCHAR(2,0) default 0 
-);`;
-const createNoteDetail = `
-CREATE TABLE "note_detail" (
-	 "text" blob,
-	 "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-	 "parent_id" INTEGER,
-	 "create_date" VARCHAR(30,0),
-     "last_update_date" VARCHAR(30,0)
-);
-`;
+
 let inited = false;
 const copyFile = async function (){
     const fse = require('fs-extra');
     var source = path.resolve(__dirname, 'database1.sqlite3');
     return new Promise((resolve,reject)=>{
         fse.copy(source,db_dest).then(()=>{
-            // db = new sqlite3.Database(db_dest)
-            config.set('dbs','true')
+            db = new sqlite3.Database(db_dest)
             resolve();
         })
     });
@@ -67,14 +41,18 @@ const createTable = async function (sql) {
 };
 const init = async function () {
     if (inited) return true;
+    let exist = require('fs').existsSync(db_dest);
+    if(exist){
+        db = new sqlite3.Database(db_dest)
+        inited = true;
+    }else{
         try {
-            await createTable(createCates);
-            await createTable(createNotes);
-            await createTable(createNoteDetail);
+            await copyFile();
             inited = true;
         } catch (e) {
             inited = false;
         }
+    }
     return inited;
 };
 
