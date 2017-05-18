@@ -6,8 +6,8 @@ const sqlite3 = require('sqlite3'),
     path = require('path'),
     {app} = require('electron');
 
-var db_dest =  path.resolve(app.getPath('userData'), 'database2.sqlite3');
-
+var db_dest =  path.resolve(__dirname, 'database1.sqlite3');//path.resolve(app.getPath('userData'), 'database3.sqlite3');
+// var db ;
 const db = new sqlite3.Database(db_dest);
 // console.info(path.resolve(app.getPath('userData'), 'database.sqlite3'))
 
@@ -43,12 +43,12 @@ const copyFile = async function (){
     var source = path.resolve(__dirname, 'database1.sqlite3');
     return new Promise((resolve,reject)=>{
         fse.copy(source,db_dest).then(()=>{
-            config.set('db','true')
+            // db = new sqlite3.Database(db_dest)
+            config.set('dbs','true')
             resolve();
         })
     });
-
-}
+};
 const createTable = async function (sql) {
     return new Promise(function (resolve, reject) {
         db.run(sql,
@@ -67,18 +67,19 @@ const createTable = async function (sql) {
 };
 const init = async function () {
     if (inited) return true;
-    if(!config.get('db')){
-        await copyFile();
-    }else{
-        try {
-            await createTable(createCates);
-            await createTable(createNotes);
-            await createTable(createNoteDetail);
-            inited = true;
-        } catch (e) {
+    // if(!config.get('dbs')){
+    //     await copyFile();
+    // }else{
+    //     db = new sqlite3.Database(db_dest)
+    //     try {
+    //         await createTable(createCates);
+    //         await createTable(createNotes);
+    //         await createTable(createNoteDetail);
+    //         inited = true;
+    //     } catch (e) {
             inited = false;
-        }
-    }
+    //     }
+    // }
     return inited;
 };
 
