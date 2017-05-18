@@ -11,6 +11,7 @@ module.exports = function () {
                 break;
             case 'get':
                 let _config = config.get('config');
+                if(_config == undefined) _config = {};
                 _config.os = process.platform === 'darwin' ? 'mac' : 'win';
                 event.sender.send(chanelOnce,_config);
                 break;
