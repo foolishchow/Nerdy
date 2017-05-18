@@ -726,6 +726,7 @@ exports.default = {
 
             this.$db('cates.query', {}, function (data) {
                 _this.model.cates = data;
+                if (_this.cateId == 'all') _this.commit('cateId', data[0].id);
             });
         },
         deleteCate: function deleteCate() {
@@ -1408,35 +1409,10 @@ exports.default = {
                     extraKeys: {
                         Enter: 'newlineAndIndentContinue',
                         Tab: function Tab(cm) {
-                            console.info(cm);
-                            var sections = cm.getSelection();
-                            if (/\n/.test(sections)) {
-                                var lineNumber = cm.getCursor();
-                                console.info(lineNumber);
-                                var lines = sections.split(/\n/).length; //,'\n'+' '.repeat(cm.getOption('tabSize')));
-                                console.info(cm.setLine);
-
-                                for (var i = 0; i < lines.length; i++) {}
-                                // cm.replaceSelection(lines);
-                            } else {
-                                cm.replaceSelection(' '.repeat(cm.getOption('tabSize')));
-                            }
-                        },
-
-                        'Shift-Tab': function ShiftTab(cm) {
-                            var sections = cm.getSelection();
-                            if (/\n/.test(sections)) {} else {
-                                var lineNumber = cm.getCursor();
-                                // console.info(lineNumber)
-                                var line = cm.getLine(lineNumber.line);
-                                var tabsize = cm.getOption('tabSize');
-                                var regexp = new RegExp('^s{' + tabsize);
-                                if (regexp.text(line)) {} else {}
-                                // cm.replaceSelection(' '.repeat(cm.getOption('tabSize')))
-                            }
-                            console.info(cm.getSelection());
+                            cm.replaceSelection(' '.repeat(cm.getOption('tabSize')));
                         }
                         // 'Alt-F': 'findPersistent'
+
                     }
                 });
                 editor.on('change', function (e) {
@@ -2074,17 +2050,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "nav-group"
   }, [_c('h5', {
     staticClass: "nav-group-title"
-  }, [_vm._v("Notes")]), _vm._v(" "), _c('span', {
-    staticClass: "nav-group-item ",
-    class: _vm.cateId == 'all' ? 'active' : '',
-    on: {
-      "click": function($event) {
-        _vm.selectCate({
-          id: 'all'
-        })
-      }
-    }
-  }, [_vm._v("所有")]), _vm._v(" "), _vm._l((_vm.model.cates), function(cate) {
+  }, [_vm._v("Notes")]), _vm._v(" "), _vm._v(" "), _vm._v(" "), _vm._v(" "), _vm._v(" "), _vm._l((_vm.model.cates), function(cate) {
     return [(_vm.cateId == cate.id && _vm.viewModel.edit) ? _c('span', {
       staticClass: "nav-group-item active"
     }, [_c('input', {

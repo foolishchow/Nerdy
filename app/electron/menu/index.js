@@ -43,7 +43,7 @@ const template = [
         submenu: [
             {
                 label: '更多',
-                click () { require('electron').shell.openExternal('https://electron.atom.io') }
+                click () { require('electron').shell.openExternal('https://github.com/foolishchow/Nerdy/') }
             }
         ]
     }

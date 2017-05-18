@@ -47,39 +47,7 @@ export  default {
                     extraKeys: {
                         Enter: 'newlineAndIndentContinue',
                         Tab(cm){
-                            console.info(cm);
-                            let sections = cm.getSelection();
-                            if (/\n/.test(sections)) {
-                                let lineNumber = cm.getCursor();
-                                console.info(lineNumber);
-                                let lines = sections.split(/\n/).length;//,'\n'+' '.repeat(cm.getOption('tabSize')));
-                                console.info(cm.setLine);
-
-                                for(var i = 0 ; i < lines.length ; i++ ){
-                                }
-                                // cm.replaceSelection(lines);
-                            }else{
-                                cm.replaceSelection(' '.repeat(cm.getOption('tabSize')))
-                            }
-                        },
-                        'Shift-Tab': function (cm) {
-                            let sections = cm.getSelection();
-                            if (/\n/.test(sections)) {
-
-                            }else{
-                                let lineNumber = cm.getCursor();
-                                // console.info(lineNumber)
-                                let line = cm.getLine(lineNumber.line);
-                                let tabsize = cm.getOption('tabSize');
-                                let regexp = new RegExp(`^\s{${tabsize}`);
-                                if(regexp.text(line)){
-
-                                }else{
-
-                                }
-                                // cm.replaceSelection(' '.repeat(cm.getOption('tabSize')))
-                            }
-                            console.info(cm.getSelection());
+                            cm.replaceSelection(' '.repeat(cm.getOption('tabSize')))
                         }
                         // 'Alt-F': 'findPersistent'
                     }

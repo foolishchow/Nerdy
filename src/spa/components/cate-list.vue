@@ -11,10 +11,10 @@
              @dragenter="wrapDragover($event)">
             <div class="nav-group" >
                 <h5 class="nav-group-title">Notes</h5>
-                <span class="nav-group-item "
-                      @click="selectCate({id:'all'})"
-                      :class="cateId == 'all' ? 'active' : ''"
-                >所有</span>
+                <!--<span class="nav-group-item "-->
+                      <!--@click="selectCate({id:'all'})"-->
+                      <!--:class="cateId == 'all' ? 'active' : ''"-->
+                <!--&gt;所有</span>-->
                 <template v-for="cate in model.cates">
                     <span v-if="cateId == cate.id && viewModel.edit"
                           class="nav-group-item active" >
@@ -129,6 +129,7 @@
             query(){
                 this.$db('cates.query', {}, (data)=> {
                     this.model.cates = data;
+                    if(this.cateId == 'all' ) this.commit('cateId',data[0].id);
                 });
             },
             deleteCate(){
