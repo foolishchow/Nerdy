@@ -1717,9 +1717,9 @@ electron-builder-util@17.4.0, electron-builder-util@~17.4.0:
     stat-mode "^0.2.2"
     tunnel-agent "^0.6.0"
 
-electron-builder@^17.1.2:
-  version "17.6.0"
-  resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-17.6.0.tgz#78b460668db98f22193b51e42e0575131cba180c"
+electron-builder@17.7.0:
+  version "17.7.0"
+  resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-17.7.0.tgz#e633b9bea913f9066b02162933e4983cd52d182d"
   dependencies:
     "7zip-bin" "^2.0.4"
     ajv "^5.0.1"

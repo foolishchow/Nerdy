@@ -5,18 +5,12 @@ const config = new Config('database-info');
 const sqlite3 = require('sqlite3'),
     path = require('path'),
     {app} = require('electron');
-if(config == null || !config.db ){
-    var source = path.resolve(__dirname, 'database1.sqlite3');
-    var dest =  path.resolve(app.getPath('userData'), 'database2.sqlite3');
-    fs.linkSync(source, dest)
-}
-const db = new sqlite3.Database(path.resolve(app.getPath('userData'), 'database2.sqlite3'));
+
+var db_dest =  path.resolve(app.getPath('userData'), 'database2.sqlite3');
+
+const db = new sqlite3.Database(db_dest);
 // console.info(path.resolve(app.getPath('userData'), 'database.sqlite3'))
-// const new Promise = function (callback) {
-//     return new Promise(function (resolve, reject) {
-//         callback(resolve, reject)
-//     })
-// };
+
 const createCates = `
 CREATE TABLE "cates" (
      "id" INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -44,6 +38,17 @@ CREATE TABLE "note_detail" (
 );
 `;
 let inited = false;
+const copyFile = async function (){
+    const fse = require('fs-extra');
+    var source = path.resolve(__dirname, 'database1.sqlite3');
+    return new Promise((resolve,reject)=>{
+        fse.copy(source,db_dest).then(()=>{
+            config.set('db','true')
+            resolve();
+        })
+    });
+
+}
 const createTable = async function (sql) {
     return new Promise(function (resolve, reject) {
         db.run(sql,
@@ -62,13 +67,17 @@ const createTable = async function (sql) {
 };
 const init = async function () {
     if (inited) return true;
-    try {
-        await createTable(createCates);
-        await createTable(createNotes);
-        await createTable(createNoteDetail);
-        inited = true;
-    } catch (e) {
-        inited = false;
+    if(!config.get('db')){
+        await copyFile();
+    }else{
+        try {
+            await createTable(createCates);
+            await createTable(createNotes);
+            await createTable(createNoteDetail);
+            inited = true;
+        } catch (e) {
+            inited = false;
+        }
     }
     return inited;
 };

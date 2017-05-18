@@ -29,25 +29,4 @@ app.on('activate', () => {
     showWindow();
 });
 
-// console.info()
-// 在这文件，你可以续写应用剩下主进程代码。
-// 也可以拆分成几个文件，然后用 require 导入。
-//
-// require('./main/db/adapter')
 
-
-// const {ipcMain} = require('electron')
-// ipcMain.on('asynchronous-message', (event, arg) => {
-//     console.log(arg)  // prints "ping"
-//     setTimeout(()=>{
-//         event.returnValue = 'pong'
-//     },3000)
-//     // event.sender.send('asynchronous-reply', 'pong')
-// });
-
-// ipcMain.on('synchronous-message', (event, arg) => {
-//     console.log(arg)  // prints "ping"
-//     setTimeout(()=>{
-//         event.returnValue = 'pong'
-//     },3000)
-// });
