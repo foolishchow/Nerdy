@@ -1,5 +1,5 @@
 {
-  "name": "Nerdy",
+  "name": "SSS1-jiaojie",
   "version": "0.0.1",
   "description": "an markdown notebook similar to mac OSX's notes",
   "main": "app/index.js",
@@ -20,7 +20,7 @@
   "author": "foolishchow",
   "license": "ISC",
   "build": {
-    "appId": "com.foolish.nerdy",
+    "appId": "com.foolish.jiaojie",
     "mac": {
       "category": "public.app-category.utilities"
     },
