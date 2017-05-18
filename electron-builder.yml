@@ -8,3 +8,6 @@ win:
 files:
   - "!**/*.map"
   - "!src/"
+
+iconUrl:
+    https://github.com/foolishchow/Nerdy/blob/0.0.1/build/icon.ico?raw=true

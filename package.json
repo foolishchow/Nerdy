@@ -1,73 +1,73 @@
 {
-  "name": "SSS1-jiaojie",
-  "version": "0.0.1",
-  "description": "an markdown notebook similar to mac OSX's notes",
-  "main": "app/index.js",
-  "scripts": {
-    "postinstall": "install-app-deps",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "db:clear": "rm -rf ~/Library/Application\\ Support/Electron/database.sqlite3",
-    "component": "cross-env NODE_ENV=production webpack --progress --hide-modules --config scripts/component.webpack.config.js",
-    "markdown": "cross-env NODE_ENV=production webpack --progress --hide-modules --config scripts/markdown.webpack.config.js",
-    "vue": "cross-env NODE_ENV=production webpack --progress --hide-modules --config scripts/vue.webpack.config.js",
-    "dev:vue": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "build:web": "npm run component && npm run markdown && npm run vue",
-    "dev": "npm run component && npm run markdown && npm run dev:vue",
-    "app": "./node_modules/.bin/electron app/index.js",
-    "mac": "build --mac",
-    "win": "build --win --ia32"
-  },
-  "author": "foolishchow",
-  "license": "ISC",
-  "build": {
-    "appId": "com.foolish.jiaojie",
-    "mac": {
-      "category": "public.app-category.utilities"
+    "name": "SSS1-jiaojie",
+    "version": "0.0.1",
+    "description": "an markdown notebook similar to mac OSX's notes",
+    "main": "app/index.js",
+    "scripts": {
+        "postinstall": "install-app-deps",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "db:clear": "rm -rf ~/Library/Application\\ Support/Electron/database.sqlite3",
+        "component": "cross-env NODE_ENV=production webpack --progress --hide-modules --config scripts/component.webpack.config.js",
+        "markdown": "cross-env NODE_ENV=production webpack --progress --hide-modules --config scripts/markdown.webpack.config.js",
+        "vue": "cross-env NODE_ENV=production webpack --progress --hide-modules --config scripts/vue.webpack.config.js",
+        "dev:vue": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+        "build:web": "npm run component && npm run markdown && npm run vue",
+        "dev": "npm run component && npm run markdown && npm run dev:vue",
+        "app": "./node_modules/.bin/electron app/index.js",
+        "mac": "build --mac",
+        "win": "build --win --ia32"
     },
-    "asar": true,
-    "win": {
-      "target": [
-        "squirrel"
-      ]
+    "author": "foolishchow",
+    "license": "ISC",
+    "build": {
+        "appId": "com.foolish.jiaojie",
+        "mac": {
+            "category": "public.app-category.utilities"
+        },
+        "asar": true,
+        "win": {
+            "target": [
+                "squirrel"
+            ]
+        },
+        "iconUrl": "https://github.com/foolishchow/Nerdy/blob/0.0.1/build/icon.ico?raw=true"
     },
-      "iconUrl":"https://github.com/foolishchow/Nerdy/blob/0.0.1/build/icon.ico?raw=true"
-  },
-  "dependencies": {
-    "electron-config": "^0.2.1",
-    "marked": "^0.3.6",
-    "sqlite3": "3.1.8"
-  },
-  "devDependencies": {
-    "babel-core": "^6.0.0",
-    "babel-helper-vue-jsx-merge-props": "^2.0.2",
-    "babel-loader": "^6.0.0",
-    "babel-plugin-syntax-jsx": "^6.18.0",
-    "babel-plugin-transform-vue-jsx": "^3.4.2",
-    "babel-preset-es2015": "^6.24.0",
-    "babel-preset-latest": "^6.0.0",
-    "codemirror": "^5.25.0",
-    "cross-env": "^3.0.0",
-    "css-loader": "^0.25.0",
-    "electron": "^1.6.2",
-    "electron-builder": "^17.1.2",
-    "electron-builder-squirrel-windows": "^17.6.0",
-    "electron-rebuild": "^1.5.7",
-    "extract-text-webpack-plugin": "^2.1.0",
-    "file-loader": "^0.9.0",
-    "front-matter": "^2.1.2",
-    "github-markdown-css": "^2.6.0",
-    "highlight.js": "^9.11.0",
-    "json-loader": "^0.5.4",
-    "markdown-it": "^8.3.1",
-    "markdown-it-task-lists": "^2.0.0",
-    "postcss-loader": "^1.3.3",
-    "postcss-salad": "^1.0.8",
-    "sanitize-html": "^1.14.1",
-    "vue-loader": "^11.1.4",
-    "vue-router-loader-yaml": "0.0.2",
-    "vue-template-compiler": "2.1.6",
-    "webpack": "^2.2.0",
-    "webpack-dev-server": "^2.2.0",
-    "yaml-loader": "^0.4.0"
-  }
+    "dependencies": {
+        "electron-config": "^0.2.1",
+        "marked": "^0.3.6",
+        "sqlite3": "3.1.8"
+    },
+    "devDependencies": {
+        "babel-core": "^6.0.0",
+        "babel-helper-vue-jsx-merge-props": "^2.0.2",
+        "babel-loader": "^6.0.0",
+        "babel-plugin-syntax-jsx": "^6.18.0",
+        "babel-plugin-transform-vue-jsx": "^3.4.2",
+        "babel-preset-es2015": "^6.24.0",
+        "babel-preset-latest": "^6.0.0",
+        "codemirror": "^5.25.0",
+        "cross-env": "^3.0.0",
+        "css-loader": "^0.25.0",
+        "electron": "^1.6.2",
+        "electron-builder": "^17.1.2",
+        "electron-builder-squirrel-windows": "^17.6.0",
+        "electron-rebuild": "^1.5.7",
+        "extract-text-webpack-plugin": "^2.1.0",
+        "file-loader": "^0.9.0",
+        "front-matter": "^2.1.2",
+        "github-markdown-css": "^2.6.0",
+        "highlight.js": "^9.11.0",
+        "json-loader": "^0.5.4",
+        "markdown-it": "^8.3.1",
+        "markdown-it-task-lists": "^2.0.0",
+        "postcss-loader": "^1.3.3",
+        "postcss-salad": "^1.0.8",
+        "sanitize-html": "^1.14.1",
+        "vue-loader": "^11.1.4",
+        "vue-router-loader-yaml": "0.0.2",
+        "vue-template-compiler": "2.1.6",
+        "webpack": "^2.2.0",
+        "webpack-dev-server": "^2.2.0",
+        "yaml-loader": "^0.4.0"
+    }
 }
