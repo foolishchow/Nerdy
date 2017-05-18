@@ -3,8 +3,7 @@ const sqlite3 = require('sqlite3'),
     path = require('path'),
     {app} = require('electron');
 
-// console.info(path.resolve(app.getPath('userData'), 'database1.sqlite3'))
-const db = new sqlite3.Database(path.resolve(app.getPath('userData'), 'database1.sqlite3'));
+const db = new sqlite3.Database(path.resolve(__dirname, 'database1.sqlite3'));
 // console.info(path.resolve(app.getPath('userData'), 'database.sqlite3'))
 // const new Promise = function (callback) {
 //     return new Promise(function (resolve, reject) {
