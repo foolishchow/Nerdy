@@ -6,8 +6,8 @@ const path = require('path');
 // 当 JavaScript 对象被垃圾回收， window 会被自动地关闭
 let win;
 let createWindow = () => {
-
-    // BrowserWindow.addDevToolsExtension(`/Users/zhoupeng/Library/Application Support/Google/Chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/3.1.2_0`);
+    //`/Users/zhoupeng/Library/Application Support/Google/Chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/3.1.4_0`
+    BrowserWindow.addDevToolsExtension(path.resolve(__dirname,'../../plugins/vue'));
     // 创建浏览器窗口。
     win = new BrowserWindow({ width: 900, height: 600,titleBarStyle:'hidden-inset',show:false })
 
