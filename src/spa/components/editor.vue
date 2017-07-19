@@ -13,7 +13,13 @@
         </app-title>
         <div class="e-wrap">
             <div class="editor-wrap" v-show="noteId != null && showEdit">
-                <textarea class="editor-input" ref="textarea">{{msg}}</textarea>
+                <!--<textarea class="editor-input" ref="textarea">{{msg}}</textarea>-->
+                <MonacoEditor ref="monaco-editor"
+                    language="markdown"
+                    v-model="msg"
+                    :src-path="monaco_path"
+                >
+                </MonacoEditor>
             </div>
             <div class="preview-wrap" v-show="noteId != null && showPreview">
                 <div class="markdown-body" v-html="preview"></div>
@@ -24,10 +30,14 @@
 
 </template>
 <script type="text/babel">
+    import MonacoEditor from '../../monaco-loader/Monaco.vue';
     import mixins from './editor.js'
     export default{
         mixins: [mixins],
         name: 'editor',
+        components: {
+            MonacoEditor
+        },
         data(){
             return {
                 editor: null,
@@ -36,6 +46,9 @@
             }
         },
         computed: {
+            monaco_path(){
+                return window.manaco_path;
+            },
             noteId(){
                 return this.$store.state.config.noteId;
             },
@@ -68,6 +81,9 @@
             },
             description(){
                 return '';
+            },
+            hiddenCate(){
+                return this.$store.state.config.hiddenCate;
             }
         }
 
@@ -98,6 +114,7 @@
         }
         .editor-wrap {
             flex: 1;
+            overflow: hidden;
         }
         .empty-wrap{
             flex: 1;
@@ -137,10 +154,13 @@
         min-width: 100px;
         height: 100%;
         overflow: auto;
+
     }
 
     .markdown-body{
-        font-size: 85%;
+        max-width: 900px;
+        margin: 0 auto;
+        /*font-size: 85%;*/
         * {
             -webkit-user-select: auto;
         }

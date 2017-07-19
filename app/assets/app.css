@@ -74,6 +74,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*codemirror theme */
 .e-wrap {
     background: #fff;
@@ -104,6 +120,7 @@
     -webkit-box-flex: 1;
         -ms-flex: 1;
             flex: 1;
+    overflow: hidden;
 }
 .e-wrap .empty-wrap{
     -webkit-box-flex: 1;
@@ -135,8 +152,11 @@
     overflow: auto;
 }
 .markdown-body{
-    font-size: 85%;
+    max-width: 900px;
+    margin: 0 auto;
 }
+
+/*font-size: 85%;*/
 .markdown-body * {
     -webkit-user-select: auto;
 }

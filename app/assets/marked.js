@@ -13,7 +13,10 @@ marked.setOptions({
     pedantic: false,
     sanitize: true,
     smartLists: true,
-    smartypants: false
+    smartypants: false,
+    highlight: function (code, lang, callback) {
+        return require('highlight.js').highlightAuto(code).value;
+    }
 });
 
 const parse = function (src) {
