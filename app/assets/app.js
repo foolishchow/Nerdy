@@ -1030,7 +1030,8 @@ exports.default = {
                 readOnly: false,
                 cursorStyle: 'line',
                 automaticLayout: false,
-                glyphMargin: true
+                glyphMargin: true,
+                fontSize: 14
             }
         };
     },
@@ -1103,6 +1104,7 @@ exports.default = {
         createMonaco: function createMonaco() {
             this.editor = window.monaco.editor.create(this.$el, this.editorOptions);
             this.editorHasLoaded(this.editor, window.monaco);
+            window.onresize = this.layout.bind(this);
         },
         destroyMonaco: function destroyMonaco() {
             if (typeof this.editor !== 'undefined') {
@@ -2160,7 +2162,8 @@ exports.default = {
             }
         },
         msg: function msg(val) {
-            // console.info(`msg changed to => ${val}`)
+            this.updateNotes();
+            this.initPreview();
         },
         hiddenCate: function hiddenCate() {
             this.$refs['monaco-editor'].layout();

@@ -83,7 +83,8 @@
                     readOnly: false,
                     cursorStyle: 'line',
                     automaticLayout: false,
-                    glyphMargin: true
+                    glyphMargin: true,
+                    fontSize:14
                 }
             }
         },
@@ -152,6 +153,7 @@
             createMonaco() {
                 this.editor = window.monaco.editor.create(this.$el, this.editorOptions);
                 this.editorHasLoaded(this.editor, window.monaco);
+                window.onresize = this.layout.bind(this);
             },
             destroyMonaco() {
                 if (typeof this.editor !== 'undefined') {
@@ -162,6 +164,7 @@
                 setTimeout(()=>{
                     this.editor && this.editor.layout();
                 },15)
+
             }
         }
     };

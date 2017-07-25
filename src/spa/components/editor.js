@@ -71,7 +71,8 @@ export  default {
             }
         },
         msg(val){
-            // console.info(`msg changed to => ${val}`)
+             this.updateNotes();
+            this.initPreview();
         },
         hiddenCate(){
             this.$refs['monaco-editor'].layout();
