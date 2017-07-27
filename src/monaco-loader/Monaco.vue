@@ -47,7 +47,7 @@
                 }]
             },
             changeThrottle: {
-                type: Number,
+                type: [Number,String],
                 default: 0
             }
         },
@@ -164,7 +164,6 @@
                 setTimeout(()=>{
                     this.editor && this.editor.layout();
                 },15)
-
             }
         }
     };

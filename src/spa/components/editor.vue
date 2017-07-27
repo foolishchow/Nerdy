@@ -18,6 +18,8 @@
                     language="markdown"
                     v-model="msg"
                     :src-path="monaco_path"
+                    @codeChange="codeChange"
+                    change-throttle="300"
                 >
                 </MonacoEditor>
             </div>

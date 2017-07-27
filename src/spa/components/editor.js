@@ -1,5 +1,4 @@
 const {markdown, Vue} = window;
-
 export  default {
     mounted(){
         this.create();
@@ -70,9 +69,8 @@ export  default {
                 });
             }
         },
-        msg(val){
-             this.updateNotes();
-            this.initPreview();
+        msg(val,old){
+
         },
         hiddenCate(){
             this.$refs['monaco-editor'].layout();

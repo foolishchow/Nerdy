@@ -991,7 +991,7 @@ exports.default = {
             }
         },
         changeThrottle: {
-            type: Number,
+            type: [Number, String],
             default: 0
         }
     },
@@ -1605,6 +1605,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
 
 exports.default = {
     mixins: [_editor2.default],
@@ -2161,10 +2163,7 @@ exports.default = {
                 });
             }
         },
-        msg: function msg(val) {
-            this.updateNotes();
-            this.initPreview();
-        },
+        msg: function msg(val, old) {},
         hiddenCate: function hiddenCate() {
             this.$refs['monaco-editor'].layout();
         }
@@ -2719,7 +2718,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     ref: "monaco-editor",
     attrs: {
       "language": "markdown",
-      "src-path": _vm.monaco_path
+      "src-path": _vm.monaco_path,
+      "change-throttle": "300"
+    },
+    on: {
+      "codeChange": _vm.codeChange
     },
     model: {
       value: (_vm.msg),
