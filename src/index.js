@@ -1,22 +1,25 @@
-import store from './spa/store'
+require('./fonts/iconfont.css');
+require('github-markdown-css/github-markdown.css');
+const store = require('./spa/store');
 
+// const message = require('./spa/utils/message.js') ;
+// Vue.use(message);
 
-import message from './spa/utils/message.js';
-Vue.use(message);
-
-// const {vueDragula} = window;
-
-import clickOutSide from './spa/utils/clickoutside';
+const clickOutSide = require( './spa/utils/clickoutside');
 Vue.directive('click-outside',clickOutSide);
 
 
-import components from './spa/components/index.js';
+const components = require( './spa/components/index.js');
 components(Vue);
 
 
-import  app from './spa/app.vue'
-const App = Vue.extend(app);
-window.app = new App({
+const  app = require( './spa/app.vue')
+// const App = Vue.extend(app);
+window.App = new Vue({
+    render(h){
+        return h(app);
+    },
+    data:{},
     store
 }).$mount("#root");
 

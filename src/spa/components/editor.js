@@ -1,5 +1,5 @@
 const {markdown, Vue} = window;
-export  default {
+module.exports = {
     mounted(){
         this.create();
     },
@@ -17,7 +17,7 @@ export  default {
         },
         queryNote(){
             if (this.noteId != null) {
-                this.$db('note_detail.query', {parent_id: this.noteId}, (data)=> {
+                fetcher('db/note_detail/query',{parent_id: this.noteId}).then((data)=> {
                     this.msg = data.text;
                     // this.$refs['monaco-editor'].setValue(data.text);
                     // this.editor.setValue(data.text);
@@ -46,12 +46,12 @@ export  default {
             }
         },
         updateNotes(){
-            this.$db('note_detail.update', {
+            fetcher('db/note_detail/update', {
                 text: this.msg,
                 parent_id: this.noteId,
                 title: this.title,
                 description: this.description
-            }, (data) => {
+            }).then( (data) => {
                 this.commit('refreshFlag', new Date().getTime())
             });
         }

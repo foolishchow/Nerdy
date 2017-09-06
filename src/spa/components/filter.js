@@ -1,6 +1,6 @@
-import DATE from './date'
+const DATE =  require('./date')
 DATE();
-export  default (Vue)=>{
+module.exports = (Vue)=>{
     Vue.filter('date', function (value) {
         let date = new Date(value),
             today = new Date();

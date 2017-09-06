@@ -44,8 +44,8 @@
     </div>
 </template>
 <script type="text/babel">
-    import resize from './resize'
-    export default {
+    const resize = require('./resize');
+    module.exports = {
         mixins: [resize],
         data(){
             return {
@@ -127,7 +127,8 @@
                 this.commit('cateWidth', width)
             },
             query(){
-                this.$db('cates.query', {}, (data)=> {
+                fetcher('db/cates/query').then((data)=> {
+                    console.info(data)
                     this.model.cates = data;
                 });
             },
@@ -138,7 +139,7 @@
                     while (this.model.cates[i].id != this.cateId) {
                         i++;
                     }
-                    this.$db('cates.delete', this.cateId, ({success})=> {
+                    fetcher('db/cates/delete',this.cateId).then(({success})=> {
                         if (success) {
                             this.query();
                             let id = i == 0 ? 'all' : this.model.cates[i - 1].id;
@@ -199,7 +200,7 @@
                         resolve(false);
                         return false;
                     } else {
-                        this.$db('cates.update', cate, (data) => {
+                        fetcher("db/cates/update",cate).then((data) => {
                             Vue.nextTick(()=> {
                                 this.viewModel.edit = false;
                             });
@@ -223,7 +224,7 @@
                     i++;
                     title = '新建分组 ' + i;
                 }
-                this.$db('cates.add', {title: title}, id=> {
+                fetcher('db/cates/add', {title: title}).then(id=> {
                     this.commit('cateId', id);
                     this.viewModel.edit = true;
                     this.viewModel.needSelect = true;

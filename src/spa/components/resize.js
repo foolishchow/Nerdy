@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     computed:{
         isWin(){
             return this.$store.state.config.os == 'win';

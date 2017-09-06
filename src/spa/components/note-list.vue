@@ -29,8 +29,8 @@
     </div>
 </template>
 <script type="text/babel">
-    import resize from './resize'
-    export default {
+    const resize = require('./resize')
+    module.exports = {
         mixins: [resize],
         data(){
             return {
@@ -66,7 +66,8 @@
                         params:[]
                     };
                 }
-                this.$db('notes.query',condition,(data)=>{
+                fetcher('db/notes/query',condition).then((data)=>{
+                    console.info(data)
                     this.commit('noteList',data);
                     if(data.length == 0) {
                         this.commit('noteId',null);
@@ -81,16 +82,17 @@
             },
             addNote(){
                 if(this.mode == 'preview') this.commit('mode','edit');
-                this.$db('notes.add',{title:'新建文档',cateId:this.cateId},id=>{
+                fetcher('db/notes/add',{title:'新建文档',cateId:this.cateId})
+                .then(id=>{
                     this.commit('noteId',id);
                     this.query();
                 });
             },
             deleteNote(){
                 if(this.noteId == null ) return;
-                this.$confirm('确定删除这个文档么?',(result)=>{
+                fetcher('system.confirm',{message:'确定删除这个文档么?'}).then((result)=>{
                     if(result){
-                        this.$db('notes.delete',{id:this.noteId},()=>{
+                        fetcher('db/notes/delete',{id:this.noteId}).then(()=>{
                             this.commit('refreshFlag','')
                         })
                     }
@@ -104,7 +106,7 @@
                 if(this.dragEnter == null){
                     event.dataTransfer.dropEffect = 'none';
                 }else{
-                    this.$db('notes.updateCate',{id:this.dragged.data.id,cate_id:this.dragEnter}, (result) => {
+                    fetcher('db/notes/updateCate',{id:this.dragged.data.id,cate_id:this.dragEnter}).then((result) => {
                         this.commit('dragged',null);
                         this.commit('dragEnter',null);
                         this.commit('refreshFlag')

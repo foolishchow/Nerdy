@@ -17,11 +17,7 @@ const state = {
 };
 
 const update = (data)=>{
-    message.send('config',{
-        method:'update',
-        arg:data
-    },function (event,arg) {
-    });
+    fetcher('config.update',data)
 };
 const mutations = {
     cateWidth(state, width) {
@@ -76,18 +72,23 @@ const mutations = {
     }
 };
 const init = ()=>{
-    message.send('config',{
-        method:'get',
-        arg:{}
-    },function (event,arg) {
-        delete arg.dragEnter;
-        Object.assign(state,arg)
-    });
+    fetcher('config.get',{}).then((data)=>{
+        delete data.dragEnter;
+        console.info(data)
+        Object.assign(state,data)
+    })
+    // message.send('config',{
+    //     method:'get',
+    //     arg:{}
+    // },function (event,arg) {
+    //     delete arg.dragEnter;
+    //     Object.assign(state,arg)
+    // });
 };
 
 init();
-export {init};
-export default {
+// export {init};
+module.exports =  {
     state,
     mutations
 }

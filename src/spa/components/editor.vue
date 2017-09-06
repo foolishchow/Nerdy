@@ -32,9 +32,9 @@
 
 </template>
 <script type="text/babel">
-    import MonacoEditor from '../../monaco-loader/Monaco.vue';
-    import mixins from './editor.js'
-    export default{
+    const MonacoEditor = require('../../monaco-loader/Monaco.vue');
+    const mixins = require('./editor.js') ;
+    module.exports = {
         mixins: [mixins],
         name: 'editor',
         components: {

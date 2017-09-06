@@ -19,7 +19,7 @@
 
 </template>
 <script type="text/babel">
-    export default{
+    module.exports = {
         data(){
             return {
                 config: {
@@ -28,30 +28,27 @@
                     hiddenCate: false
                 },
                 inited: false,
-                dragImg: '../assets/img/plan.png'
+                dragImg: '../src/img/plan.png'
             };
         },
         created(){
             this.getConfig();
-            //            this.$confirm('确定加载这个文件么!',function(result){
-            //                console.info(result)
-            //            })
-
         },
         methods: {
-            updateConfig(obj, callback){
+            updateConfig(obj, callback=()=>{}){
                 this.config = obj;
-                this.$config('update', obj, callback);
+                fetcher('config.update', obj).then(callback);
             },
             getConfig(){
-                this.$config('get', {}, (obj)=> {
+                fetcher('config.get').then((obj)=> {
+                    console.info(obj)
                     this.inited = true;
                     if (obj == null) {
                         obj = {
                             'cateWidth': 130,
                             'noteWidth': 180
                         };
-                        this.updateConfig(obj, ()=> {})
+                        this.updateConfig(obj)
                     } else {
                         this.config = obj;
                     }

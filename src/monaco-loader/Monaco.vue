@@ -3,9 +3,9 @@
 </template>
 
 <script type="text/babel">
-    var debounce = require('lodash.debounce');
-    import monacoLoader from './MonacoLoader';
-    export default {
+    const debounce = require('lodash.debounce');
+    const monacoLoader = require( './MonacoLoader');
+    module.exports =  {
         props: {
             value:{
                 type: String,
@@ -84,7 +84,11 @@
                     cursorStyle: 'line',
                     automaticLayout: false,
                     glyphMargin: true,
-                    fontSize:14
+                    fontSize:14,
+                    scrollBeyondLastLine: false,
+                    minimap: {
+                        enabled: false
+                    }
                 }
             }
         },
