@@ -25,6 +25,7 @@
     }
   },
   "dependencies": {
+    "devtron": "^1.4.0",
     "electron-config": "^0.2.1",
     "electron-nokogiri": "^0.0.12",
     "front-matter": "^2.1.2",
