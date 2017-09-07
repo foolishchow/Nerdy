@@ -128,7 +128,6 @@
             },
             query(){
                 fetcher('db/cates/query').then((data)=> {
-                    console.info(data)
                     this.model.cates = data;
                 });
             },

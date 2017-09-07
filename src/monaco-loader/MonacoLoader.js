@@ -6,7 +6,12 @@ module.exports = {
             return;
         }
         const config = {
-            baseUrl:srcPath
+            baseUrl:srcPath,
+            'vs/nls' : {
+                availableLanguages: {
+                    '*': 'zh-cn'
+                }
+            }
             // paths: {
             //     vs: srcPath + '/vs'
             // }

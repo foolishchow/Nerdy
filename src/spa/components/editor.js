@@ -30,7 +30,8 @@ module.exports = {
             }
         },
         initPreview(){
-            this.preview = markdown.parse({content: this.msg}).html;
+            let val = markdown.parse({content: this.msg}).html;
+            this.preview = val;
         },
         initEditor(){
             if (this.editor == null) {

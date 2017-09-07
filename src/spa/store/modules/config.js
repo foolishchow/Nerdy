@@ -74,7 +74,6 @@ const mutations = {
 const init = ()=>{
     fetcher('config.get',{}).then((data)=>{
         delete data.dragEnter;
-        console.info(data)
         Object.assign(state,data)
     })
     // message.send('config',{

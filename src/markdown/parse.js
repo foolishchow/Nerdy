@@ -12,10 +12,9 @@ const parse = tab => {
     // });
 
     const data = fm(tab.content)
-
     return {
         attrs: data.attributes,
-        html: sanitize(render({content: data.body, filePath: tab.filePath}))
+        html: sanitize(render({content: data.body}))
     }
 };
 

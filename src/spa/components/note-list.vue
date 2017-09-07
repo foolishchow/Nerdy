@@ -67,7 +67,6 @@
                     };
                 }
                 fetcher('db/notes/query',condition).then((data)=>{
-                    console.info(data)
                     this.commit('noteList',data);
                     if(data.length == 0) {
                         this.commit('noteId',null);

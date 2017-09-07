@@ -41,7 +41,6 @@
             },
             getConfig(){
                 fetcher('config.get').then((obj)=> {
-                    console.info(obj)
                     this.inited = true;
                     if (obj == null) {
                         obj = {

@@ -35,9 +35,11 @@ process.once('loaded', () => {
 	global.markdown = require('@.root.src.markdown')
 	// here Vue is loaded earlier than vue-devtools , so init the tool in hand
 	let vueTools = setInterval(()=>{
-		if(__VUE_DEVTOOLS_GLOBAL_HOOK__){
+		if(global.__VUE_DEVTOOLS_GLOBAL_HOOK__){
 			__VUE_DEVTOOLS_GLOBAL_HOOK__.emit('init',Vue);
 			clearInterval(vueTools);
 		}
 	},20)
+
+	require('./context-menu')
 });

@@ -2,7 +2,7 @@
   "name": "Nerdy",
   "version": "0.0.1",
   "description": "an markdown notebook similar to mac OSX's notes",
-  "main": "app/index.js",
+  "main": "app/main.js",
   "scripts": {
     "postinstall": "install-app-deps",
     "db:clear": "rm -rf ~/Library/Application\\ Support/Electron/database.sqlite3",
@@ -41,6 +41,7 @@
     "postcss-salad": "^1.0.8",
     "sanitize-html": "^1.14.1",
     "sqlite3": "3.1.8",
+    "to-markdown": "^3.1.0",
     "vue": "2.4.1",
     "vue-template-compiler": "2.4.1",
     "vuex": "2.3.0"

@@ -5,6 +5,7 @@
 <script type="text/babel">
     const debounce = require('lodash.debounce');
     const monacoLoader = require( './MonacoLoader');
+    const toMarkdown = require('./toMarkdown');
     module.exports =  {
         props: {
             value:{
@@ -88,7 +89,8 @@
                     scrollBeyondLastLine: false,
                     minimap: {
                         enabled: false
-                    }
+                    },
+                    contextmenu:false
                 }
             }
         },
@@ -135,7 +137,24 @@
                 this.editor.onDidChangeModelContent(event =>
                     this.codeChangeHandler(editor, event)
                 );
+                this.editor.onDidBlurEditorText(()=>globalEmmiter.emit('focusEditor',false));
+                this.editor.onDidFocusEditorText(()=>globalEmmiter.emit('focusEditor',true));
+                let self = this;
+                this.editor.addAction({
+                    id: 'editor.action.transformToMarkdown',
+                    label: 'transformToMarkdown',
+                    // keybindings: [ monaco.KeyMod.chord(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_T)],
+                    run(ed) {
+                        let value = ed.getValue();
+                        let val = toMarkdown(value)
+                        // self.$emit('input',val)
+                        ed.setValue(val)
+                        return null;
+                    }
+                });
+
                 this.$emit('mounted', editor);
+                globalEmmiter.editor = this.editor;
             },
             codeChangeHandler: function (editor) {
                 if (this.codeChangeEmitter) {
@@ -160,6 +179,7 @@
                 window.onresize = this.layout.bind(this);
             },
             destroyMonaco() {
+                globalEmmiter.editor = null;
                 if (typeof this.editor !== 'undefined') {
                     this.editor.dispose();
                 }
