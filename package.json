@@ -1,55 +1,55 @@
 {
-  "name": "Nerdy",
-  "version": "0.0.1",
-  "description": "an markdown notebook similar to mac OSX's notes",
-  "main": "app/main.js",
-  "scripts": {
-    "postinstall": "install-app-deps",
-    "db:clear": "rm -rf ~/Library/Application\\ Support/Electron/database.sqlite3",
-    "app": "./node_modules/.bin/electron app/main.js",
-    "mac": "build --mac",
-    "win": "build --win --ia32"
-  },
-  "author": "foolishchow",
-  "license": "ISC",
-  "build": {
-    "appId": "com.foolish.nerdy",
-    "mac": {
-      "category": "public.app-category.utilities"
+    "name": "Nerdy",
+    "version": "0.0.1-beta",
+    "description": "an markdown notebook similar to mac OSX's notes",
+    "main": "app/main.js",
+    "scripts": {
+        "postinstall": "install-app-deps",
+        "db:clear": "rm -rf ~/Library/Application\\ Support/Electron/database.sqlite3",
+        "app": "./node_modules/.bin/electron app/main.js",
+        "mac": "build --mac",
+        "win": "build --win --ia32"
     },
-    "asar": true,
-    "win": {
-      "target": [
+    "author": "foolishchow",
+    "license": "ISC",
+    "build": {
+        "appId": "com.foolish.nerdy",
+        "mac": {
+            "category": "public.app-category.utilities"
+        },
+        "asar": true,
+        "win": {
+            "target": [
         "squirrel"
       ]
+        }
+    },
+    "dependencies": {
+        "devtron": "^1.4.0",
+        "electron-config": "^0.2.1",
+        "electron-nokogiri": "^0.0.12",
+        "front-matter": "^2.1.2",
+        "github-markdown-css": "^2.6.0",
+        "highlight.js": "^9.12.0",
+        "lodash.debounce": "^4.0.8",
+        "markdown-it": "^8.3.1",
+        "markdown-it-task-lists": "^2.0.0",
+        "marked": "^0.3.6",
+        "mimetype": "^0.0.8",
+        "monaco-editor": "^0.9.0",
+        "postcss": "^6.0.11",
+        "postcss-salad": "^1.0.8",
+        "sanitize-html": "^1.14.1",
+        "sqlite3": "3.1.8",
+        "to-markdown": "^3.1.0",
+        "vue": "2.4.1",
+        "vue-template-compiler": "2.4.1",
+        "vuex": "2.3.0"
+    },
+    "devDependencies": {
+        "electron": "^1.6.2",
+        "electron-builder": "^17.1.2",
+        "electron-builder-squirrel-windows": "^17.6.0",
+        "electron-rebuild": "^1.5.7"
     }
-  },
-  "dependencies": {
-    "devtron": "^1.4.0",
-    "electron-config": "^0.2.1",
-    "electron-nokogiri": "^0.0.12",
-    "front-matter": "^2.1.2",
-    "github-markdown-css": "^2.6.0",
-    "highlight.js": "^9.12.0",
-    "lodash.debounce": "^4.0.8",
-    "markdown-it": "^8.3.1",
-    "markdown-it-task-lists": "^2.0.0",
-    "marked": "^0.3.6",
-    "mimetype": "^0.0.8",
-    "monaco-editor": "^0.9.0",
-    "postcss": "^6.0.11",
-    "postcss-salad": "^1.0.8",
-    "sanitize-html": "^1.14.1",
-    "sqlite3": "3.1.8",
-    "to-markdown": "^3.1.0",
-    "vue": "2.4.1",
-    "vue-template-compiler": "2.4.1",
-    "vuex": "2.3.0"
-  },
-  "devDependencies": {
-    "electron": "^1.6.2",
-    "electron-builder": "^17.1.2",
-    "electron-builder-squirrel-windows": "^17.6.0",
-    "electron-rebuild": "^1.5.7"
-  }
 }
