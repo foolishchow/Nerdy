@@ -1,8 +1,9 @@
-import markdown from './markdown/markdown.js'
-import parse from './markdown/parse.js';
-import sanitize from './markdown/sanitize.js';
+const markdown = require('./markdown/markdown.js') 
+const parse = require( './markdown/parse.js');
+const sanitize = require( './markdown/sanitize.js');
 
-export default {
+
+module.exports = {
     markdown,
     parse,
     sanitize

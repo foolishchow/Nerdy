@@ -1,4 +1,9 @@
-export default {
+module.exports = {
+    computed:{
+        isWin(){
+            return this.$store.state.config.os == 'win';
+        }
+    },
     methods: {
         handleMouseMove(event,ref){
             let target = event.target;
@@ -26,13 +31,13 @@ export default {
                     startMouseLeft: event.clientX,
                     startWidth: rect.right - rect.left
                 };
-                // this.resize.trigger.querySelector('._container').style.overflowY = 'hidden';
+                this.resize.trigger.querySelector('._container').style.overflowY = 'hidden';
 
                 const handleMouseUp = (event)=>{
                     if (this.resize.in) {
                         var width = this.resize.trigger.style.width;
                         document.body.style.cursor = '';
-                        // this.resize.trigger.querySelector('._container').style.overflowY = 'scroll';
+                        if(this.isWin) this.resize.trigger.querySelector('._container').style.overflowY = 'scroll';
                         this.resize.in = false;
                         this[cb](parseInt(width.replace(/px$/gi,'')));
                     }
@@ -48,7 +53,7 @@ export default {
                         width = minWidth;
                         stop = true;
                     }
-                    this.resize.trigger.style.width = Math.min(width,295)+'px';
+                    if(this.isWin)this.resize.trigger.style.width = Math.min(width,295)+'px';
 
                     if(stop){
                         document.body.style.cursor = 'e-resize'

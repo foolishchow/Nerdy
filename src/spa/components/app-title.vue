@@ -4,7 +4,7 @@
     </div>
 </template>
 <script>
-    export default {
+    module.exports = {
         props:{
             align:{
                 type:String,

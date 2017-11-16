@@ -1,13 +1,10 @@
 <template>
     <!--<editor></editor>-->
-    <div class="app">
+    <div :class="'app '+os">
         <div class="wrap" v-if="inited">
-            <left-main
-                    :cate-width="config.cateWidth"
-                    :note-width="config.noteWidth"
-                    :cate-id="config.cateId"
-                    :hidden-cate="config.hiddenCate"
-            ></left-main>
+
+            <cate-list></cate-list>
+            <note-list></note-list>
             <div class="flex-editor">
                 <editor></editor>
             </div>
@@ -19,7 +16,7 @@
 
 </template>
 <script type="text/babel">
-    export default{
+    module.exports = {
         data(){
             return {
                 config: {
@@ -28,30 +25,26 @@
                     hiddenCate: false
                 },
                 inited: false,
-                dragImg: '../assets/img/plan.png'
+                dragImg: '../src/img/plan.png'
             };
         },
         created(){
             this.getConfig();
-            //            this.$confirm('确定加载这个文件么!',function(result){
-            //                console.info(result)
-            //            })
-
         },
         methods: {
-            updateConfig(obj, callback){
+            updateConfig(obj, callback=()=>{}){
                 this.config = obj;
-                this.$config('update', obj, callback);
+                fetcher('config.update', obj).then(callback);
             },
             getConfig(){
-                this.$config('get', {}, (obj)=> {
+                fetcher('config.get').then((obj)=> {
                     this.inited = true;
                     if (obj == null) {
                         obj = {
                             'cateWidth': 130,
                             'noteWidth': 180
                         };
-                        this.updateConfig(obj, ()=> {})
+                        this.updateConfig(obj)
                     } else {
                         this.config = obj;
                     }
@@ -59,6 +52,11 @@
             },
             setTitleSize(val){
                 this.config.titleSize = val;
+            }
+        },
+        computed:{
+            os(){
+                return this.$store.state.config.os;
             }
         }
     }
@@ -97,7 +95,7 @@
         width: 100%;
         height: 100%;
         margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica, helvetica neue, Ubuntu, segoe ui, arial, sans-serif;;
+        font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica, helvetica neue, Ubuntu, segoe ui, arial ,'Microsoft yahei', sans-serif;;
     }
 
     html {
@@ -175,7 +173,15 @@
             text-decoration: none;
         }
 
-        span.cm-comment {
+        .cm-list{
+            color:#6a9fb5;
+        }
+        .cm-quote{
+            color:#aaa;
+            text-decoration: blink;
+        }
+        span.cm-comment,
+        .cm-code-block{
             color: rgb(18, 139, 21)
         }
 
@@ -186,5 +192,12 @@
 
     }
 
-
+    .win{
+        ::-webkit-scrollbar {width: 6px;height:6px;}
+        ::-webkit-scrollbar-track-piece{background-color: #eee;margin: -2px;}
+        ::-webkit-scrollbar-thumb{background: #aaa;min-height: 150px;min-width: 150px;border-radius: 10px;}
+        ::-webkit-scrollbar-thumb:vertical:hover{background: #555555}
+        ::-webkit-scrollbar-thumb:horizontal:hover{background: #555555}
+    }
+    
 </style>

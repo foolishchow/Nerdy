@@ -1,4 +1,4 @@
-import sanitizeHtml from 'sanitize-html';
+const sanitizeHtml = require('sanitize-html') ;
 
 function sanitizer(html) {
     return sanitizeHtml(html, sanitizer.config)
@@ -76,4 +76,4 @@ function sanitizeCellStyle(tagName, attribs) {
     return result ? cell(result[1]) : cell()
 }
 
-export default sanitizer
+module.exports = sanitizer

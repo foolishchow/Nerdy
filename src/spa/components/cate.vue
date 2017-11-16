@@ -5,9 +5,9 @@
     </div>
 </template>
 <script type="text/babel">
-    import cateList from './cate-list.vue'
-    import noteList from './note-list.vue';
-    export default {
+    const cateList = require('./cate-list.vue') 
+    const noteList = require('./note-list.vue');
+    module.exports = {
         components:{cateList,noteList},
         name: 'left-main',
         data(){

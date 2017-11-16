@@ -33,7 +33,7 @@ on(document, 'mouseup', e => {
  * <div v-element-clickoutside="handleClose">
  * ```
  */
-export default {
+exports = {
     bind(el, binding, vnode) {
         const id = nodeList.push(el) - 1;
         const documentHandler = function(mouseup, mousedown) {

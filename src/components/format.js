@@ -64,16 +64,36 @@ module.exports = class format {
     }
 
     format (stream, state) {
-        let match;
         if (stream.eatSpace()) {
             return null;
         }
+        console.info(`
+stream   => ===>${stream.string}<===
+sol      => ${stream.sol()}
+eatSpace => ${stream.eat(/\s/)}
+peek     => ===>${stream.peek()}<===
+macth    =>`);
+        console.info(stream);
+        if (!state.block) {
+            let block = lineType.block(stream, state);
+            if (block != false) return block;
+        }
+        if (state.block) {
+            let blockEnd = lineType.blockEnd(stream, state);
+            if (blockEnd != false) return blockEnd;
+        }
+
+        let list = lineType.list(stream, state);
+        if (list !== false) return list;
+
+        let quote = lineType.quote(stream,state);
+        if (quote !== false) return quote;
         //header
         let header = lineType.header(stream, state);
-        if(header !== false) return header;
+        if (header !== false) return header;
 
         let line = lineType.line(stream, state);
-        if(line != false) {
+        if (line != false) {
             stream.skipToEnd();
             return line;
         }
@@ -87,52 +107,55 @@ module.exports = class format {
 
         let modeCfg = this.modeConfig;
 
-
         var style = state.formatText(stream, state);
         if (typeof style !== 'undefined') {
             return style;
         }
 
         // Get sol() value now, before character is consumed
-        var eol = stream.eol();
         var ch = stream.next();
 
+        if( state.block ) {
+            return Type(state);
+        }
+
         let header = inlineType.header(stream, state);
-        if(header !== false) return header;
+        if (header !== false) return header;
 
-        let imageLeader = inlineType.image.leader(stream, state,ch);
-        if(imageLeader != false) return imageLeader;
-        let imageAlt = inlineType.image.alt(stream, state,ch);
-        if(imageAlt != false) return imageAlt;
-        let imageAltEnd = inlineType.image.altEnd(stream, state,ch);
-        if(imageAltEnd != false) return imageAltEnd;
-        let imageUrl = inlineType.image.url(stream, state,ch);
-        if(imageUrl != false) return imageUrl;
-        let imageUrlRef = inlineType.image.urlRef(stream, state,ch);
-        if(imageUrlRef != false) return imageUrlRef;
-
-
-        let linkAlt = inlineType.link.alt(stream, state,ch);
-        if(linkAlt != false) return linkAlt;
-        let linkAltEnd = inlineType.link.altEnd(stream, state,ch);
-        if(linkAltEnd != false) return linkAltEnd;
-        let linkUrl = inlineType.link.url(stream, state,ch);
-        if(linkUrl != false) return linkUrl;
-        let linkUrlRef = inlineType.link.urlRef(stream, state,ch);
-        if(linkUrlRef != false) return linkUrlRef;
-
-        let UrlDefine = inlineType.urlDefine(stream, state,ch);
-        if(UrlDefine != false) return UrlDefine;
+        let imageLeader = inlineType.image.leader(stream, state, ch);
+        if (imageLeader != false) return imageLeader;
+        let imageAlt = inlineType.image.alt(stream, state, ch);
+        if (imageAlt != false) return imageAlt;
+        let imageAltEnd = inlineType.image.altEnd(stream, state, ch);
+        if (imageAltEnd != false) return imageAltEnd;
+        let imageUrl = inlineType.image.url(stream, state, ch);
+        if (imageUrl != false) return imageUrl;
+        let imageUrlRef = inlineType.image.urlRef(stream, state, ch);
+        if (imageUrlRef != false) return imageUrlRef;
 
 
+        let linkAlt = inlineType.link.alt(stream, state, ch);
+        if (linkAlt != false) return linkAlt;
+        let linkAltEnd = inlineType.link.altEnd(stream, state, ch);
+        if (linkAltEnd != false) return linkAltEnd;
+        let linkUrl = inlineType.link.url(stream, state, ch);
+        if (linkUrl != false) return linkUrl;
+        let linkUrlRef = inlineType.link.urlRef(stream, state, ch);
+        if (linkUrlRef != false) return linkUrlRef;
+
+        let UrlDefine = inlineType.urlDefine(stream, state, ch);
+        if (UrlDefine != false) return UrlDefine;
 
 
-        let fontStrong = inlineType.font.strong(stream, state,ch);
-        if(fontStrong != false) return fontStrong;
+        let fontStrong = inlineType.font.strong(stream, state, ch);
+        if (fontStrong != false) return fontStrong;
 
-        let fontEmphasize = inlineType.font.emphasize(stream, state,ch);
-        if(fontEmphasize != false) return fontEmphasize;
+        let fontEmphasize = inlineType.font.emphasize(stream, state, ch);
+        if (fontEmphasize != false) return fontEmphasize;
 
+
+        let code = inlineType.block(stream, state,ch);
+        if(code) return code;
         return Type(state);
     }
 }

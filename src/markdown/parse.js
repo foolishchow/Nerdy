@@ -1,6 +1,6 @@
-import md from './markdown';
-import fm from 'front-matter'
-import sanitize from './sanitize';
+const md = require('./markdown') ;
+const fm = require('front-matter') 
+const sanitize = require('./sanitize') ;
 const parse = tab => {
     const render = tab => md.render(tab.content)
     //     .replace(/src="([^"]+)"/g, (m, p1) => {
@@ -12,11 +12,10 @@ const parse = tab => {
     // });
 
     const data = fm(tab.content)
-
     return {
         attrs: data.attributes,
-        html: sanitize(render({content: data.body, filePath: tab.filePath}))
+        html: sanitize(render({content: data.body}))
     }
 };
 
-export default parse;
+module.exports = parse;
