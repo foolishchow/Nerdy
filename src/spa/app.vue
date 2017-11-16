@@ -2,12 +2,9 @@
     <!--<editor></editor>-->
     <div :class="'app '+os">
         <div class="wrap" v-if="inited">
-            <left-main
-                    :cate-width="config.cateWidth"
-                    :note-width="config.noteWidth"
-                    :cate-id="config.cateId"
-                    :hidden-cate="config.hiddenCate"
-            ></left-main>
+
+            <cate-list></cate-list>
+            <note-list></note-list>
             <div class="flex-editor">
                 <editor></editor>
             </div>

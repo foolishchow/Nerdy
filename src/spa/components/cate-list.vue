@@ -1,52 +1,52 @@
-<template>
+<template lang="html">
     <div class="cate-list" v-show="!hiddenCate"
-         tabindex="0" ref="cate-list"
-         :style="{width : _cateWidth}"
-         @mousedown="handleMouseDown($event,'updateWidth')"
-         @mousemove="handleMouseMove($event,'cate-list')">
+         tabindex="0" ref="cate-list">
         <app-title></app-title>
-        <div class="cate-container _container" tabindex="30001"
-             @keyup.enter="modify"
-             @keyup.delete="deleteCate"
-             @dragenter="wrapDragover($event)">
-            <div class="nav-group" >
-                <h5 class="nav-group-title">Notes</h5>
-                <span class="nav-group-item "
-                      @click="selectCate({id:'all'})"
-                      :class="cateId == 'all' ? 'active' : ''"
-                >所有</span>
-                <template v-for="cate in model.cates">
-                    <span v-if="cateId == cate.id && viewModel.edit"
-                          class="nav-group-item active" >
-                        <input class="cate-edit"
-                               ref="cate-edit" v-model="cate.title"
-                               :style="{width:_inputWidth}"
-                               v-click-outside="saveModify"
-                               @keyup.stop.enter="saveModify($event,cate)"
-                               @keyup.stop/>
-                    </span>
-                    <span v-else
-                          class="nav-group-item "
-                          :class="[{'active':cateId == cate.id},{'dragenter':dragEnter == cate.id}]"
-                          @click="selectCate(cate)"
-                          @dblclick="modify"
-                          @dragstart="dragstart($event,cate)"
-                          @dragover.stop.prevent="dragover($event,cate)"
-                    >{{cate.title}}</span>
-                </template>
-            </div>
+        <div class="cate__wrap">
+            <resize-panel v-model="width" min="130">
+                <div class="cate-container _container" tabindex="30001"
+                     @keyup.enter="modify"
+                     @keyup.delete="deleteCate"
+                     @dragenter="wrapDragover($event)">
+                    <div class="nav-group" >
+                        <h5 class="nav-group-title">Notes</h5>
+                        <span class="nav-group-item "
+                              @click="selectCate({id:'all'})"
+                              :class="cateId == 'all' ? 'active' : ''">所有</span>
+                        <template v-for="cate in model.cates">
+                            <span v-if="cateId == cate.id && viewModel.edit"
+                                  class="nav-group-item active" >
+                                <input class="cate-edit"
+                                       ref="cate-edit" v-model="cate.title"
+                                       :style="{width:_inputWidth}"
+                                       v-click-outside="saveModify"
+                                       @keyup.stop.enter="saveModify($event,cate)"
+                                       @keyup.stop/>
+                            </span>
+                            <span v-else
+                                  class="nav-group-item "
+                                  :class="[{'active':cateId == cate.id},{'dragenter':dragEnter == cate.id}]"
+                                  @click="selectCate(cate)"
+                                  @dblclick="modify"
+                                  @dragstart="dragstart($event,cate)"
+                                  @dragover.stop.prevent="dragover($event,cate)"
+                            >{{cate.title}}</span>
+                        </template>
+                    </div>
+                </div>
+                <div class="cate-add-wrap">
+                        <span class="cate-add" @click="addCate">
+                            <span class="iconfont icon-tianjia"></span>添加类别
+                        </span>
+                </div>
+            </resize-panel>
         </div>
-        <div class="cate-add-wrap">
-                <span class="cate-add" @click="addCate">
-                    <span class="iconfont icon-tianjia"></span>添加类别
-                </span>
-        </div>
+        
     </div>
 </template>
 <script type="text/babel">
-    const resize = require('./resize');
     module.exports = {
-        mixins: [resize],
+        name:'cate-list',
         data(){
             return {
                 viewModel: {
@@ -56,6 +56,7 @@
                 model: {
                     cates: []
                 },
+                width:0,
                 resize: {
                     can: false,
                     in: false,
@@ -63,7 +64,16 @@
                 }
             };
         },
+        watch:{
+            width(val){
+                this.commit('cateWidth', val < 130?130:val)
+                if(val < 130){
+                    this.commit('hiddenCate',true)
+                }
+            }
+        },
         created(){
+            this.width = this._cateWidth;
             this.query();
         },
         computed: {
@@ -74,7 +84,7 @@
                 return this.$store.state.config.dragEnter
             },
             _cateWidth(){
-                return this.$store.state.config.cateWidth + 'px';
+                return this.$store.state.config.cateWidth
             },
             _inputWidth(){
                 return (this.$store.state.config.cateWidth - 46) + 'px';
@@ -236,15 +246,17 @@
 <style rel="stylesheet/scss">
     .cate-list {
         position: relative;
-        width: 180px;
         height: 100%;
         background-color: rgb(244, 240, 240);
-        float: left;
-
+        display: flex;
+        flex-direction: column;
+        .cate__wrap{
+            flex:1;
+        }
         .cate-container {
             transform: translate3d(0,0,0);
             position: absolute;
-            top: 34px;
+            top: 0;
             bottom: 25px;
             width: 100%;
             border-right: 1px solid rgb(223, 223, 223);

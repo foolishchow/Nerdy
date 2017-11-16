@@ -56,6 +56,7 @@ const md = new MarkdownIt({
     highlight(str, lang) {
         if(!requiredCss){
             require('../../node_modules/highlight.js/styles/default.css')
+            require('../../node_modules/highlight.js/styles/tomorrow-night.css')
             requiredCss = true;
         }
         // try{
